@@ -37,3 +37,22 @@ def extract(file_list)
 end
 
 extract(tests)
+
+
+# def save_base64_to_zip(base64_text, output_file = 'archive.zip')
+#   # Decode the base64 text to binary data
+#   binary_data = Base64.strict_decode64(base64_text)
+
+#   # Write the binary data to a zip file
+#   File.open(output_file, 'wb') do |file|
+#     file.write(binary_data)
+#   end
+
+#   puts "File saved as #{output_file}"
+# rescue => e
+#   puts "An error occurred: #{e.message}"
+# end
+
+# # Example usage:
+# base64_text = "UEsDBBQAAAAI..." # Replace with your base64 encoded text
+# save_base64_to_zip(base64_text)
