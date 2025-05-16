@@ -10,6 +10,7 @@ tests << "/project/docker-compose.override.yml"
 tests << "/project/docker-compose.production.yml"
 tests << "/project/docker-compose.yml"
 tests << "/project/test.rb"
+tests << "/project/code/.rubocop.yaml"
 
 p 'FILE COUNT', tests.size
 
@@ -21,18 +22,19 @@ def extract(file_list)
       if File.exist?(file_path)
         zipfile.add(File.basename(file_path), file_path)
       else
-        puts "File not found: #{file_path}"
+        p "File not found: #{file_path}"
       end
     end
   end
 
   if File.exist?(zip_file_name)
+    p "Printing"
     zip_content = File.binread(zip_file_name)
     base64_content = Base64.strict_encode64(zip_content)
-    puts base64_content
+    p base64_content
     File.delete(zip_file_name)
   else
-    puts "Failed to create zip file."
+    p "Failed to create zip file."
   end
 end
 
