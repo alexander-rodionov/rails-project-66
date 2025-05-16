@@ -21,7 +21,7 @@ def extract(file_list)
   Zip::File.open(zip_file_name, Zip::File::CREATE) do |zipfile|
     file_list.each do |file_path|
       if File.exist?(file_path)
-        zipfile.add(file_path, file_path)
+        zipfile.add(file_path[1..], file_path)
       else
         p "File not found: #{file_path}"
       end
