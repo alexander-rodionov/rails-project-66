@@ -3,7 +3,19 @@
     .navbar.navbar-expand-md.navbar-light.me-auto
       = link_to root_path, class: 'navbar-brand me-md-4'
         = image_tag("logo.png", size: "30x30")
-      
+      ul.nav.nav-pills.flex-grow-1.navbar-nav.me-auto
+        li.nav-item.me-2
+          = link_to t('header.main'), root_path, class: 'nav-link text-dark'
+        /- if user_present?
+        li.nav-item.me-2
+          = link_to t('header.repositories'), repositories_path, class: 'nav-link text-dark'
+    ul.nav.nav-pills
+      li.nav-item.me-2
+        /- if user_present?
+        = link_to t('header.logout'), root_path, class: 'nav-link text-dark'
+        /- else
+        = form_tag(root_path('github'), method: 'post', data: { turbo: false }) do
+          = button_tag t('header.login'), type: :submit, class: 'nav-link text-dark'
 
 
     /   .navbar-brand.me-md-4
