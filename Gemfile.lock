@@ -433,6 +433,7 @@ DEPENDENCIES
   rollbar
   rubocop-rails
   rubocop-rails-omakase
+  rubyzip
   selenium-webdriver
   simple_form
   slim-rails

@@ -79,5 +79,6 @@ group :test do
   gem "capybara"
   gem 'minitest'
   gem 'minitest-power_assert'
+  gem 'rubyzip'
   gem "selenium-webdriver"
 end
