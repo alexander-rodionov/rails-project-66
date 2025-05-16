@@ -50,7 +50,6 @@ gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem 'pg', groups: [:production]
 # gem 'pundit'
-gem 'pwa-rails'
 # gem 'ransack'
 gem 'rollbar'
 gem 'rubocop-rails', groups: %i[development test]
