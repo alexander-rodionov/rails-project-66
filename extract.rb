@@ -15,6 +15,7 @@ tests << "/project/code/.rubocop.yaml"
 p 'FILE COUNT', tests.size
 
 def extract(file_list)
+  p 'Enter function'
   zip_file_name = 'archive.zip'
 
   Zip::File.open(zip_file_name, Zip::File::CREATE) do |zipfile|
@@ -36,7 +37,11 @@ def extract(file_list)
   else
     p "Failed to create zip file."
   end
+rescue => e
+  p 'Exception', e
 end
+
+p 'Starting extract', tests
 
 extract(tests)
 
