@@ -6,10 +6,29 @@ en:
     logout: Log out
   
   welcome:
-    title_1: Привет от Хекслета!
-    title_2: Практические курсы по программированию
-    title_3: Анализатор качества репозиториев
-    title_4: Проект, который помогает автоматически следить за качеством репозиториев на Github. Он отслеживает изменения и прогоняет их через встроенные анализаторы. Затем формирует отчеты и отправляет их пользователю.
-    know_more: Узнать больше
-    
+    title_1: Greetings from Hexlet!
+    title_2: Practical programming courses
+    title_3: Repository Quality Analyzer
+    title_4: A project that helps automatically monitor the quality of repositories on GitHub. It tracks changes and runs them through built-in analyzers. Then it generates reports and sends them to the user.
+    know_more: Learn more
+    # title_1: Привет от Хекслета!
+    # title_2: Практические курсы по программированию
+    # title_3: Анализатор качества репозиториев
+    # title_4: Проект, который помогает автоматически следить за качеством репозиториев на Github. Он отслеживает изменения и прогоняет их через встроенные анализаторы. Затем формирует отчеты и отправляет их пользователю.
+    # know_more: Узнать больше
+  
+  repositories:
+    index:
+      add: Append repository
+      name: Name
+      language: Language
+      last_check_status: Last check status
+    actions:
+      create: Create repository
+  
+  time:
+    formats:
+      human: "%d %B %Y, %H:%M"
+      short: "%d %B, %H:%M"
+    no_value: Empty
 

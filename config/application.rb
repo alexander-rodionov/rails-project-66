@@ -1,6 +1,8 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails/all"
+require_relative 'boot'
+
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -14,12 +16,15 @@ module RailsProject66
     config.generators do |g|
       g.template_engine :slim
     end
-    #config.i18n.default_locale = :ru
+    # config.i18n.default_locale = :ru
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+    #config.autoload_paths << Rails.root.join('app/services')
+    config.autoload_paths += Dir["#{config.root}/app/services/**/"]
+    p config.autoload_paths
 
     # Configuration for the application, engines, and railties goes here.
     #

@@ -1,0 +1,4 @@
+= render 'web/shared/fancy_frame' do
+  = simple_form_for @repository do |f|
+    = f.input :github_id, collection: available_projects
+    = f.submit t('repositories.actions.create'), class: 'btn btn btn-success'

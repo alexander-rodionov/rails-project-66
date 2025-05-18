@@ -1,0 +1,3 @@
+class LinterCheckService < BaseCheckService
+
+end

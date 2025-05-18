@@ -11,6 +11,8 @@
           = link_to t('header.repositories'), repositories_path, class: 'nav-link text-dark'
     ul.nav.nav-pills
       li.nav-item.me-2
+        = link_to current_user_email, root_path, class: 'nav-link text-secondary'
+      li.nav-item.me-2
         /- if user_present?
         = link_to t('header.logout'), root_path, class: 'nav-link text-dark'
         /- else

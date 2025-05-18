@@ -1,7 +1,11 @@
-class Web::ApplicationController < ApplicationController
-  allow_browser versions: :modern
+# frozen_string_literal: true
 
-  def current_user
-    @current_user =1
+module Web
+  class ApplicationController < ApplicationController
+    allow_browser versions: :modern
+
+    def current_user
+      @current_user ||= User.take
+    end
   end
 end

@@ -3,3 +3,8 @@ one:
 #
 two:
   email: two@test.io
+
+main:
+  email: slkdfjsdlkfjsdlkjf@mail.ru
+  nickname: some_user
+  token: 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

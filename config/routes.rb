@@ -1,9 +1,20 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
-  scope module: :web do
-    root "welcome#index"
-    resources :repositories, only: %i[index]
+Rails.application.routes.draw do
+  post '/auth/:provider', to: 'sessions#auth', as: :auth_request
+
+  namespace :api do
+    resources :checks
   end
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  scope module: :web do
+    root 'home#index'
+    resources :repositories, only: %i[index new create show] do
+      resources :checks, only: %i[show], controller: 'repositories/checks'
+    end
+    resources :home, only: %i[index]
+  end
+
+  get 'up' => 'rails/health#show', as: :rails_health_check
+
 end

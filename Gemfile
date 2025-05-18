@@ -46,6 +46,7 @@ gem "thruster", require: false
 gem 'dotenv-rails', groups: %i[development test]
 gem 'html2slim', groups: %i[development test]
 # gem 'kaminari'
+gem "octokit"
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem 'pg', groups: [:production]
@@ -81,4 +82,5 @@ group :test do
   gem 'minitest-power_assert'
   gem 'rubyzip'
   gem "selenium-webdriver"
+  gem 'webmock'
 end
