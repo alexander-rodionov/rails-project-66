@@ -14,13 +14,16 @@ module Web
     end
 
     def create
-      debugger
+      gs = GitService.new(current_user)
+      repo = gs.repo_by_id(@github_id)
       Repository.create!(
         user: current_user,
-        name: 'Some name',
-        full_name: 'Some_full_name',
-        language: 'lang',
-        github_id: @github_id
+        name: repo[:name],
+        full_name: repo[:full_name],
+        language: gs.primary_language(repo[:id]),
+        github_id: repo[:id],
+        web_path: repo[:html_url],
+        clone_path: repo[:clone_url]
       )
       redirect_to repositories_path
     end

@@ -7,4 +7,4 @@ two:
 main:
   email: slkdfjsdlkfjsdlkjf@mail.ru
   nickname: some_user
-  token: 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
+  token: <%= ENV[DEV_GIT_TOKEN]%>

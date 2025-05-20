@@ -32,3 +32,12 @@ en:
       short: "%d %B, %H:%M"
     no_value: Empty
 
+  aasm:
+    state_names:
+      created: "Created"
+      cloning: "Cloning"
+      cloned: "Cloned"
+      processing: "Processing"
+      finished: "Finished"
+      failed: "Failed"
+      empty: "Empty"

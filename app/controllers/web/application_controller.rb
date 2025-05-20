@@ -5,7 +5,7 @@ module Web
     allow_browser versions: :modern
 
     def current_user
-      @current_user ||= User.take
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
     end
   end
 end

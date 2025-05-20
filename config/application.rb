@@ -16,7 +16,7 @@ module RailsProject66
     config.generators do |g|
       g.template_engine :slim
     end
-    # config.i18n.default_locale = :ru
+    config.i18n.default_locale = :ru
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

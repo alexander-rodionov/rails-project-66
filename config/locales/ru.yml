@@ -1,0 +1,83 @@
+ru:
+  header:
+    main: Главная
+    repositories: Репозитории
+    login: Войти
+    logout: Выйти
+
+  welcome:
+    title_1: Привет от Хекслета!
+    title_2: Практические курсы по программированию
+    title_3: Анализатор качества репозиториев
+    title_4: Проект, который помогает автоматически следить за качеством репозиториев на GitHub. Он отслеживает изменения и прогоняет их через встроенные анализаторы. Затем формирует отчеты и отправляет их пользователю.
+    know_more: Узнать больше
+
+  repositories:
+    index:
+      add: Добавить
+      name: Название
+      language: Язык
+      last_check_status: Статус последней проверки
+    show:
+      name: Название
+      language: Язык
+      created: Дата создания
+      updated: Дата обновления
+    actions:
+      create: Создать репозиторий
+      check: Проверить
+  checks:
+    index:
+      number: №
+      status: Статус
+      commit_id: ID коммита
+      check_passed: Проверка пройдена?
+      created: Дата создания
+    show:
+      title: Проверка
+      status: Статус
+      commit_id: ID коммита
+      check_passed: Проверка пройдена?
+      created: Дата создания
+      error_count: Количество замечаний
+      error: Ошибка
+    errors:
+      message: Сообщение
+      rule_id: Идентификатор правила
+      location: Строка и символ
+    actions:
+      to_repository: В репозиторий
+
+
+
+  time:
+    formats:
+      human: "%d %B %Y, %H:%M"
+      short: "%d %B, %H:%M"
+    no_value: Пусто
+
+  date:
+    month_names:
+      - ~
+      - января
+      - февраля
+      - марта
+      - апреля
+      - мая
+      - июня
+      - июля
+      - августа
+      - сентября
+      - октября
+      - ноября
+      - декабря
+
+  aasm:
+    state_names:
+      created: "Создано"
+      cloning: "Клонирование"
+      cloned: "Клонировано"
+      processing: "Обработка"
+      finished: "Завершено"
+      failed: "Неудача"
+      empty: "Пусто"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Api
-  class ChecksControllerTest < Api::ApplicationController
+  class ChecksController < Api::ApplicationController
   end
 end

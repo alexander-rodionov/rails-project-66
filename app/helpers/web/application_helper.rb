@@ -16,4 +16,8 @@ module Web::ApplicationHelper
   def current_user_email
     controller.current_user[:email] || 'Unknown'
   end
+
+  def human_state(check)
+    t("aasm.state_names.#{check.aasm_state}")
+  end
 end

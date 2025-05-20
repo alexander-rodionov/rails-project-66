@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  post '/auth/:provider', to: 'sessions#auth', as: :auth_request
+
 
   namespace :api do
     resources :checks
@@ -9,8 +9,15 @@ Rails.application.routes.draw do
 
   scope module: :web do
     root 'home#index'
+
+    scope :auth do
+      post '/:provider', to: 'sessions#auth', as: :auth_request
+      post '/:provider/callback', to: 'sessions#create', as: :auth_login_callback
+      get :logout, to: 'sessions#destroy', as: :logout
+    end
+
     resources :repositories, only: %i[index new create show] do
-      resources :checks, only: %i[show], controller: 'repositories/checks'
+      resources :checks, only: %i[show create], controller: 'repositories/checks'
     end
     resources :home, only: %i[index]
   end

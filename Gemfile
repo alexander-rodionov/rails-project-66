@@ -42,13 +42,15 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-# gem 'aasm'
+gem 'aasm'
 gem 'dotenv-rails', groups: %i[development test]
+gem 'hotwire-rails'
 gem 'html2slim', groups: %i[development test]
 # gem 'kaminari'
 gem "octokit"
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
+gem 'open3'
 gem 'pg', groups: [:production]
 # gem 'pundit'
 # gem 'ransack'
@@ -58,6 +60,7 @@ gem 'simple_form'
 gem 'slim_lint', groups: %i[development test]
 gem 'slim-rails'
 gem 'webmock', groups: %i[test]
+gem 'whenever', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
