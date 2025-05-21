@@ -2,6 +2,7 @@
 
 class Web::SessionsController < Web::ApplicationController
   def create
+    p auth_hash
     email = auth_hash['info']['email']
     nickname = auth_hash['info']['nickname']
     token = auth_hash['info']['credentials']['token']
