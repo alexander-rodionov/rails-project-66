@@ -5,7 +5,7 @@ class Web::SessionsController < Web::ApplicationController
     pp auth_hash
     email = auth_hash['info']['email']
     nickname = auth_hash['info']['nickname']
-    token = auth_hash['info']['credentials']['token']
+    token = auth_hash['credentials']['token']
 
     user = User.find_by(email: email)
     user ||= User.create!(nickname:, email:, token:)
@@ -35,8 +35,74 @@ class Web::SessionsController < Web::ApplicationController
           }
         }
 
-      }
-    end
+{"provider"=>"github",
+"uid"=>"9053113",
+"info"=>
+{"nickname"=>"alexander-rodionov",
+"email"=>"alexander.a.rodionov@gmail.com",
+"name"=>nil,
+"image"=>"https://avatars.githubusercontent.com/u/9053113?v=4",
+"urls"=>{"GitHub"=>"https://github.com/alexander-rodionov", "Blog"=>""}},
+"credentials"=>
+{"token"=>"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", "expires"=>false},
+"extra"=>
+{"raw_info"=>
+{"login"=>"alexander-rodionov",
+"id"=>9053113,
+"node_id"=>"MDQ6VXNlcjkwNTMxMTM=",
+"avatar_url"=>"https://avatars.githubusercontent.com/u/9053113?v=4",
+"gravatar_id"=>"",
+"url"=>"https://api.github.com/users/alexander-rodionov",
+"html_url"=>"https://github.com/alexander-rodionov",
+"followers_url"=>
+"https://api.github.com/users/alexander-rodionov/followers",
+"following_url"=>
+"https://api.github.com/users/alexander-rodionov/following{/other_user}",
+"gists_url"=>
+"https://api.github.com/users/alexander-rodionov/gists{/gist_id}",
+"starred_url"=>
+"https://api.github.com/users/alexander-rodionov/starred{/owner}{/repo}",
+"subscriptions_url"=>
+"https://api.github.com/users/alexander-rodionov/subscriptions",
+"organizations_url"=>
+"https://api.github.com/users/alexander-rodionov/orgs",
+"repos_url"=>"https://api.github.com/users/alexander-rodionov/repos",
+"events_url"=>
+"https://api.github.com/users/alexander-rodionov/events{/privacy}",
+"received_events_url"=>
+"https://api.github.com/users/alexander-rodionov/received_events",
+"type"=>"User",
+"user_view_type"=>"private",
+"site_admin"=>false,
+"name"=>nil,
+"company"=>nil,
+"blog"=>"",
+"location"=>nil,
+"email"=>nil,
+"hireable"=>nil,
+"bio"=>nil,
+"twitter_username"=>nil,
+"notification_email"=>nil,
+"public_repos"=>7,
+"public_gists"=>0,
+"followers"=>0,
+"following"=>0,
+"created_at"=>"2014-10-07T15:30:52Z",
+"updated_at"=>"2025-05-15T21:20:35Z",
+"private_gists"=>0,
+"total_private_repos"=>9,
+"owned_private_repos"=>9,
+"disk_usage"=>85657,
+"collaborators"=>0,
+"two_factor_authentication"=>false,
+"plan"=>
+{"name"=>"free",
+"space"=>976562499,
+"collaborators"=>0,
+"private_repos"=>10000}}
+      }}
+
+   end
     request.env['omniauth.auth']
   end
 end
