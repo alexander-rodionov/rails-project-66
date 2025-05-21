@@ -2,10 +2,14 @@
 
 class Web::SessionsController < Web::ApplicationController
   def create
-    pp auth_hash
-    email = auth_hash['info']['email']
-    nickname = auth_hash['info']['nickname']
-    token = auth_hash['credentials']['token']
+    email = auth_hash&.[]('info')&.[]('email')
+    nickname = auth_hash&.[]('info')&.[]('nickname')
+    token = auth_hash&.[]('credentials')&.[]('token')
+
+    if email.nil? || nickname.nil? || token.nil?
+      pp 'FAILURE'
+      pp email, nickname, token
+    end
 
     user = User.find_by(email: email)
     user ||= User.create!(nickname:, email:, token:)
