@@ -51,11 +51,18 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile --trace
 
 
-RUN rm -rf node_modules
+#RUN rm -rf node_modules
 
 # Copy built artifacts: gems, application
 # COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 # COPY --from=build /rails /rails
+
+ENV PG_HOST=amvera-rodionovalex-cnpg-rails66-rw
+ENV PG_PORT=5432
+ENV PG_NAME=rails66
+ENV PG_USER=postgres
+ENV PG_DATA=wL105z7lDG8H8jM41QmI
+ENV DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 
 RUN SECRET_KEY_BASE_DUMMY=1 bin/rails db:reset
 
