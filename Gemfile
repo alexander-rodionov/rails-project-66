@@ -47,6 +47,7 @@ gem 'dotenv-rails', groups: %i[development test]
 gem 'hotwire-rails'
 gem 'html2slim', groups: %i[development test]
 # gem 'kaminari'
+gem 'faraday-retry'
 gem "octokit"
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
@@ -56,11 +57,12 @@ gem 'pg', groups: [:production]
 # gem 'ransack'
 gem 'rollbar'
 gem 'rubocop-rails', groups: %i[development test]
+gem 'sass-rails'
 gem 'simple_form'
 gem 'slim_lint', groups: %i[development test]
 gem 'slim-rails'
+gem 'solid_queue_dashboard'
 gem 'webmock', groups: %i[test]
-gem 'whenever', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -85,5 +87,4 @@ group :test do
   gem 'minitest-power_assert'
   gem 'rubyzip'
   gem "selenium-webdriver"
-  gem 'webmock'
 end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
-
   namespace :api do
     resources :checks
   end
@@ -23,5 +21,7 @@ Rails.application.routes.draw do
   end
 
   get 'up' => 'rails/health#show', as: :rails_health_check
-
+  scope 'solid-queue' do
+    mount SolidQueueDashboard::Engine, at: "/"
+  end
 end

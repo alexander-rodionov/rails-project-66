@@ -6,6 +6,9 @@ module Web
 
     def current_user
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    rescue StandartError
+      # TODO: Rollbar
+      session[:user_id] = nil
     end
   end
 end
