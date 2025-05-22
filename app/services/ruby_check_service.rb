@@ -12,12 +12,12 @@ class RubyCheckService < BaseCheckService
   def parse_result(in_data)
     result = {
       summary: {
-        offense_count: in_data["summary"]["offense_count"], 
-        target_file_count: in_data["summary"]["target_file_count"], 
-        inspected_file_count: in_data["summary"]["inspected_file_count"]
+        offense_count: in_data['summary']['offense_count'],
+        target_file_count: in_data['summary']['target_file_count'],
+        inspected_file_count: in_data['summary']['inspected_file_count']
       },
       metadata: {
-        rubocop_version: in_data["metadata"].map { |k, v| { k.to_sym => v } }.reduce(:merge)
+        rubocop_version: in_data['metadata'].map { |k, v| { k.to_sym => v } }.reduce(:merge)
       }
     }
     result[:files] = in_data['files'].map do |x|

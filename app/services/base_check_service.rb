@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class BaseCheckService < BaseService
   attr_accessor :dir, :result
 
@@ -20,7 +21,7 @@ class BaseCheckService < BaseService
 
     parsed_data = JSON.parse(stdout_res)
     [false, parse_result(parsed_data)]
-  rescue StandardError => e
+  rescue StandardError
     # TODO: Sentry
     [nil, nil]
   end
@@ -36,5 +37,4 @@ class BaseCheckService < BaseService
   def check_command
     not_implemented_error
   end
-
 end

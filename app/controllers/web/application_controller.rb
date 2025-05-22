@@ -9,6 +9,7 @@ module Web
     rescue StandartError
       # TODO: Rollbar
       session[:user_id] = nil
+      @current_user = nil
     end
   end
 end

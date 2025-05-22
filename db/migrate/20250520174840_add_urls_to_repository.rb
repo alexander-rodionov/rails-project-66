@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUrlsToRepository < ActiveRecord::Migration[8.0]
   def change
     add_column :repositories, :commits_path, :string

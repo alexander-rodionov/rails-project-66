@@ -1,6 +1,8 @@
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
+# frozen_string_literal: true
+
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
 require 'webmock/minitest'
 require 'minitest/autorun'
 require 'minitest/power_assert'
@@ -9,7 +11,7 @@ WebMock.disable_net_connect!(allow: 'api.github.com')
 module ActiveSupport
   class TestCase
     include Minitest::PowerAssert::Assertions
-    
+
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 
@@ -29,7 +31,6 @@ end
 # OmniAuth.config.test_mode = true
 # # WebMock.disable_net_connect!
 # test_path = File.expand_path('fixtures', __dir__)
-
 
 # ActiveSupport::TestCase.fixture_paths = [test_path]
 
@@ -76,4 +77,3 @@ end
 #     puts "\nRunning spec #{self.class}:#{name} with params: #{params}"
 #   end
 # end
-

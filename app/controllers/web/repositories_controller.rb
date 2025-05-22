@@ -9,6 +9,8 @@ module Web
       @repositories = Repository.where(user: current_user)
     end
 
+    def show; end
+
     def new
       @repository = Repository.new
     end
@@ -27,8 +29,6 @@ module Web
       )
       redirect_to repositories_path
     end
-
-    def show; end
 
     private
 

@@ -94,6 +94,6 @@ Rails.application.configure do
   config.assets.css_compressor = nil
 
   # Ensure proper compilation
-  #config.assets.compile = false  # Requires precompilation
-  config.assets.digest = false    # Fingerprinting
+  # config.assets.compile = false  # Requires precompilation
+  config.assets.digest = false # Fingerprinting
 end

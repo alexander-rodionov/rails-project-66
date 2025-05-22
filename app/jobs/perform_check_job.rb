@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PerformCheckJob < ApplicationJob
   queue_as :default
   attr_accessor :check

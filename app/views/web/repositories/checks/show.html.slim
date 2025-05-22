@@ -10,27 +10,27 @@
       tr
         td = t('checks.show.status')
         td = human_state(@check)
-      tr 
+      tr
         td = t('checks.show.check_passed')
         td = @check.passed?
-      tr 
+      tr
         td = t('checks.show.error_count')
         td = @check.error_count
-      tr 
+      tr
         td = t('checks.show.commit_id')
         td = @check.short_id && link_to(@check.short_id, git_commit_link(@check))
       - if @check.error
-        tr 
+        tr
           td = t('checks.show.error')
           td = @check.error
 
   table.table.table-hover.mb-5
-    thead 
+    thead
       tr
         th = t('checks.errors.message')
         th = t('checks.errors.rule_id')
         th = t('checks.errors.location')
-    tbody 
+    tbody
       - @check.error_list&.each_value do |check_result|
         - check_result&.each do |result|
           tr

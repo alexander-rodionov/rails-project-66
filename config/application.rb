@@ -19,7 +19,6 @@ module RailsProject66
 
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
-    p config.autoload_paths
-
+    #Rails.logger.debug config.autoload_paths
   end
 end

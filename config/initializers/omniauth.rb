@@ -7,7 +7,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if Rails.env.development?
     provider :developer
   else
-    provider :github, 
+    provider :github,
              ENV.fetch('GITHUB_CLIENT_ID', nil),
              ENV.fetch('GITHUB_CLIENT_SECRET', nil),
              scope: 'user,public_repo,admin:repo_hook',

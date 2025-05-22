@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class EslintCheckService < BaseCheckService
   def check_command
     "npx eslint --format json #{dir}"
@@ -7,7 +8,6 @@ class EslintCheckService < BaseCheckService
   def self.language
     'javascript'
   end
-
 
   def parse_result(in_data)
     result = {}
@@ -24,6 +24,5 @@ class EslintCheckService < BaseCheckService
       inspected_file_count: result[:files].size
     }
     result
-
   end
 end

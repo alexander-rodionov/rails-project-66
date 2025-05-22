@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module Web
-    class AuthControllerTest < ActionDispatch::IntegrationTest
+  class AuthControllerTest < ActionDispatch::IntegrationTest
     test 'check github auth' do
       post auth_request_path('github')
       assert_response :redirect

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddClonePathToRepositoryCheck < ActiveRecord::Migration[8.0]
   def change
     add_column :repository_checks, :clone_path, :string
