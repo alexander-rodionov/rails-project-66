@@ -58,6 +58,7 @@ gem 'pg', groups: [:production]
 gem 'premailer-rails'
 gem 'rollbar'
 gem 'rubocop-rails', groups: %i[development test]
+gem 'sass'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'slim_lint', groups: %i[development test]
