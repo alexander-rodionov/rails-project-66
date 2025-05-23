@@ -6,7 +6,6 @@ class Repository::Check < ApplicationRecord
   belongs_to :repository
 
   if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
-    self.ignored_columns += ['result'] if Rails.gem_version >= Version.new('7.1')
     attribute :result, :json, default: -> { {} }
   else
     serialize :result, coder: JSON
