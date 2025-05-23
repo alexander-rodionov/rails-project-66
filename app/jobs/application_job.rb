@@ -15,11 +15,10 @@ class ApplicationJob < ActiveJob::Base
   rescue StandardError => e
     register_rollbar_error(e)
   end
-  
+
   def notify_finish(check)
     CheckMailer.finished(check).deliver_later
   rescue StandardError => e
     register_rollbar_error(e)
   end
-
 end
