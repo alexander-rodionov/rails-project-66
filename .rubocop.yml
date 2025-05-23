@@ -12,11 +12,11 @@ AllCops:
     - '**/*.gemspec'
     - '**/Gemfile'
     - '**/Rakefile'
-    - db/*.rb
-    - db/**/*.rb
-    - db/**/*.rb
-    - db/**/*.rake
-    - app/**/*.rb
+    # - db/*.rb
+    # - db/**/*.rb
+    # - db/**/*.rb
+    # - db/**/*.rake
+    # - app/**/*.rb
   Exclude:
     - bin/**/*
     - tmp/**/*
