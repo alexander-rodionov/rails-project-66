@@ -54,6 +54,7 @@ Rails.application.configure do
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
   config.solid_queue.connects_to = { database: { writing: :queue } }
+  config.active_job.verbose_enqueue_logs = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -61,6 +62,16 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: 'example.com' }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch('MAIL_HOST', nil),
+    port: ENV.fetch('MAIL_PORT', nil),
+    user_name: ENV.fetch('MAIL_USER', nil),
+    password: ENV.fetch('MAIL_PASSWORD', nil),
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -89,4 +100,10 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  config.assets.css_compressor = nil
+
+  # Ensure proper compilation
+  # config.assets.compile = false  # Requires precompilation
+  config.assets.digest = false # Fingerprinting
 end

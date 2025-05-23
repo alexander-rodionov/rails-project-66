@@ -1,9 +1,11 @@
-require "test_helper"
+# frozen_string_literal: true
 
-#module Repository
-  class CheckTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
-  end
-#end
+require 'test_helper'
+
+# module Repository
+class CheckTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end
+# end

@@ -3,22 +3,27 @@
 require 'securerandom'
 require 'fileutils'
 
-class StorageManagementService
+class StorageManagementService < BaseService
   CACHE_KEY = 'tmp_dirs'
   CACHE_LIFETIME = 1.day
   TMP_DIRECTORY = Rails.root.join('tmp/repos')
 
-  def self.acquire_tmp_directory
-    dir = TMP_DIRECTORY.join(SecureRandom.uuid).to_s
-    FileUtils.rm_rf(dir)
-    Dir.mkdir(dir)
-    register_dir(dir)
-    dir
+  def self.repo_directory_alive?(repo_id, commit_id)
+    dir = dir_name(repo_id, commit_id)
+    if Dir.exist?(dir) && required_dirs.include?(dir)
+      true
+    else
+      FileUtils.rm_rf(dir)
+      false
+    end
   end
 
-  def self.release_tmp_directory(dir)
-    unregister_dir(dir)
+  def self.acquire_directory(repo_id, commit_id)
+    dir = dir_name(repo_id, commit_id)
     FileUtils.rm_rf(dir)
+    FileUtils.mkdir_p(dir)
+    register_dir(dir)
+    dir
   end
 
   def self.clean_up_directories
@@ -44,4 +49,7 @@ class StorageManagementService
     Rails.cache.write(CACHE_KEY, val, expires_in: CACHE_LIFETIME)
   end
 
+  def self.dir_name(repo_id, commit_id)
+    TMP_DIRECTORY.join(repo_id.to_s).join(commit_id).to_s
+  end
 end

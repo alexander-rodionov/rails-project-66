@@ -9,23 +9,30 @@ module Web
       @repositories = Repository.where(user: current_user)
     end
 
+    def show
+      redirect_to :repositories if @repository.nil?
+    end
+
     def new
       @repository = Repository.new
     end
 
     def create
-      debugger
+      gs = GitService.new(current_user)
+      repo = gs.repo_by_id(@github_id)
+
       Repository.create!(
         user: current_user,
-        name: 'Some name',
-        full_name: 'Some_full_name',
-        language: 'lang',
-        github_id: @github_id
+        name: repo[:name],
+        full_name: repo[:full_name],
+        language: gs.primary_language(@github_id),
+        github_id: @github_id,
+        web_path: repo[:html_url],
+        clone_path: repo[:clone_url]
       )
+      gs.register_hook(@github_id, ENV.fetch('BASE_URL')) # request.base_url)
       redirect_to repositories_path
     end
-
-    def show; end
 
     private
 
@@ -35,6 +42,8 @@ module Web
 
     def set_repository
       @repository = Repository.find(params.expect(:id))
+    rescue ActiveRecord::RecordNotFound
+      @repository = nil
     end
   end
 end

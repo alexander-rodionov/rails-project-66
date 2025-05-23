@@ -3,9 +3,5 @@
 module Web
   class ApplicationController < ApplicationController
     allow_browser versions: :modern
-
-    def current_user
-      @current_user ||= User.take
-    end
   end
 end

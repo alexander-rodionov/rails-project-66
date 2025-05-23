@@ -2,42 +2,19 @@
   .d-flex.flex-wrap.align-items-center.py-2.border-bottom
     .navbar.navbar-expand-md.navbar-light.me-auto
       = link_to root_path, class: 'navbar-brand me-md-4'
-        = image_tag("logo.png", size: "30x30")
+        = image_tag('logo.png', size: '30x30')
       ul.nav.nav-pills.flex-grow-1.navbar-nav.me-auto
         li.nav-item.me-2
           = link_to t('header.main'), root_path, class: 'nav-link text-dark'
-        /- if user_present?
-        li.nav-item.me-2
-          = link_to t('header.repositories'), repositories_path, class: 'nav-link text-dark'
+        - if user_present?
+          li.nav-item.me-2
+            = link_to t('header.repositories'), repositories_path, class: 'nav-link text-dark'
     ul.nav.nav-pills
+      - if user_present?
+        li.nav-item.me-2
+          div class='nav-link text-secondary' = current_user_email
       li.nav-item.me-2
-        = link_to current_user_email, root_path, class: 'nav-link text-secondary'
-      li.nav-item.me-2
-        /- if user_present?
-        = link_to t('header.logout'), root_path, class: 'nav-link text-dark'
-        /- else
-        = form_tag(root_path('github'), method: 'post', data: { turbo: false }) do
-          = button_tag t('header.login'), type: :submit, class: 'nav-link text-dark'
-
-
-    /   .navbar-brand.me-md-4
-    /     = link_to t('header.title'), root_path, class: 'navbar-brand me-md-4'
-    /   ul.nav.nav-pills.flex-grow-1.navbar-nav.me-auto
-    /     li.nav-item.me-2
-    /       = link_to t('header.main'), root_path, class: 'nav-link text-dark'
-    /     - if user_present?
-    /       li.nav-item.me-2
-    /         = link_to t('header.profile'), profile_path, class: 'nav-link text-dark'
-    /       li.nav-item.me-2
-    /         = link_to t('header.add'), new_bulletin_path, class: 'nav-link text-dark'
-    / ul.nav.nav-pills
-    /   li.nav-item.me-2
-    /     - if user_admin?
-    /       = link_to t('header.admin'), admin_root_path, class: 'nav-link text-dark'
-    /   li.nav-item.me-2
-    /     - if user_present?
-    /       = link_to t('header.logout'), logout_path, class: 'nav-link text-dark'
-    /       /= button_to 'Sign Out', sign_out_path, method: :delete
-    /     - else
-    /       = link_to t('header.login'), login_path, class: 'nav-link text-dark'
-    /       /= link_to 'Sign in with GitHub', '/auth/github'
+        -if user_present?
+          = link_to t('header.logout'), logout_path, class: 'nav-link text-dark'
+        - else
+          = button_to t('header.login'), auth_request_path(:github), class: 'nav-link text-dark'

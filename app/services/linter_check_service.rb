@@ -1,3 +1,0 @@
-class LinterCheckService < BaseCheckService
-
-end

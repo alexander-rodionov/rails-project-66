@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
-
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  def register_rollbar_error(exception = nil)
+    Rollbar.error(exception || 'No exception',
+                  request: request,
+                  user: current_user,
+                  params: params.to_unsafe_h)
+  rescue StandardError => e
+    Rails.logger.warning "Rollbar exception #{e}"
+  end
 end

@@ -1,3 +1,0 @@
-class UserDataService
-
-end

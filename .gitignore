@@ -6,7 +6,8 @@
 
 git_token.txt
 
-node_modules
+node_modules/
+
 
 # Ignore bundler config.
 /.bundle
@@ -36,3 +37,6 @@ node_modules
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

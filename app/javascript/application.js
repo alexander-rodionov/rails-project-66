@@ -3,3 +3,7 @@ import "@hotwired/turbo-rails"
 import "controllers"
 
 import "bootstrap";
+
+//= require rails-ujs
+//= require turbo
+import * as bootstrap from "bootstrap"

@@ -3,6 +3,8 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  config.hosts << ENV.fetch('BASE_URL')[%r{http.*://(.*)}, 1]
+
   config.cache_store = :memory_store, { size: 200.megabytes }
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -44,6 +46,16 @@ Rails.application.configure do
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch('MAIL_HOST'),
+    port: ENV.fetch('MAIL_PORT'),
+    user_name: ENV.fetch('MAIL_USER'),
+    password: ENV.fetch('MAIL_PASSWORD'),
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -58,6 +70,8 @@ Rails.application.configure do
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
