@@ -121,7 +121,7 @@ class GitService < BaseService
   end
 
   def client
-    @client ||= Octokit::Client.new(access_token: @user.token)
+    @client ||= OCTOKIT_MODULE::Client.new(access_token: @user.token)
   end
 
   def register_hook(repo_id, base_url)

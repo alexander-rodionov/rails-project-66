@@ -19,7 +19,6 @@ module Api
       post api_checks_url, params: payload, as: :json
       assert_response :ok
 
-      # NOTE: можно избавиться от last?
       check = repository.checks.last
 
       assert { check }
