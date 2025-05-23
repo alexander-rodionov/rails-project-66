@@ -29,10 +29,16 @@ class PerformCheckJob < ApplicationJob
 
       status_end_processing
       logger.info 'PerformCheckJob success'
+      begin
+        CheckMailer.finished(@check).deliver_now
+      rescue StandardError => e
+        Rails.logger.error "Finished email sending failure #{e}"
+      end
     end
   rescue StandardError => e
     status_failed(e)
     logger.info 'PerformCheckJob failed'
+    CheckMailer.finished(@check).deliver_now
   end
 
   def status_no_checks
@@ -52,6 +58,7 @@ class PerformCheckJob < ApplicationJob
   def status_end_processing
     @check && ActiveRecord::Base.transaction do
       @check.end_processing
+      @check.passed = @check.passed?
       @check.save!
     end
   end

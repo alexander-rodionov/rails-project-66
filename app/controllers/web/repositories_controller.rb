@@ -9,7 +9,9 @@ module Web
       @repositories = Repository.where(user: current_user)
     end
 
-    def show; end
+    def show
+      redirect_to :repositories if @repository.nil?
+    end
 
     def new
       @repository = Repository.new
@@ -18,15 +20,17 @@ module Web
     def create
       gs = GitService.new(current_user)
       repo = gs.repo_by_id(@github_id)
+
       Repository.create!(
         user: current_user,
         name: repo[:name],
         full_name: repo[:full_name],
-        language: gs.primary_language(repo[:id]),
-        github_id: repo[:id],
+        language: gs.primary_language(@github_id),
+        github_id: @github_id,
         web_path: repo[:html_url],
         clone_path: repo[:clone_url]
       )
+      gs.register_hook(@github_id, ENV.fetch('BASE_URL')) #request.base_url)
       redirect_to repositories_path
     end
 
@@ -38,6 +42,8 @@ module Web
 
     def set_repository
       @repository = Repository.find(params.expect(:id))
+    rescue ActiveRecord::RecordNotFound
+      @repository = nil
     end
   end
 end

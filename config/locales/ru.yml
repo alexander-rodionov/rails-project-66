@@ -34,6 +34,7 @@ ru:
       check_passed: Проверка пройдена?
       created: Дата создания
     show:
+      repository: Репозиторий
       title: Проверка
       status: Статус
       commit_id: ID коммита
@@ -149,3 +150,12 @@ ru:
       over_x_years_ago: "больше %{count} лет назад"
       almost_x_years_ago: "почти %{count} лет назад"
       x_years_ago: "%{count} лет назад"
+
+  email:
+    started:
+      subject: Проверка начата
+      header: Проверка начата
+    finished:
+      subject: Проверка завершена
+      header: Проверка завершена
+      

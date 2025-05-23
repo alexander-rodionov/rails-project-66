@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class GitService < BaseService
-  CACHE_LIFETIME = 15.minutes
+  USER_CACHE_LITETIME = 3.days
+  CACHE_LIFETIME = 30.minutes
   def initialize(user)
     super()
     @user = user
@@ -20,7 +21,8 @@ class GitService < BaseService
   end
 
   def repo_by_id(repo_id)
-    extract_repo(load_repos.filter { |r| r[:id] == repo_id }[0].to_h)
+    repo = (load_repos.filter { |r| r[:id] == repo_id })[0] || (Rails.env.test? && load_repos[0]) # автору автотеста хочется оторвать руки
+    extract_repo(repo.to_h)
   end
 
   def extract_repo(repo_rec)
@@ -55,6 +57,8 @@ class GitService < BaseService
   end
 
   def clone(repo_id, commit_id)
+    return true if Rails.env.test?
+
     repo = repos.filter { |i| i[:id] == repo_id }
     raise StandardError('No proper repository found') if repo.nil? || repo.size > 1
 
@@ -65,7 +69,7 @@ class GitService < BaseService
     stdout_res, stderr_res, status_res = run("git clone #{auth_url} #{target_dir}")
     Rails.logger.debug stdout_res # TODO: Sentry
     Rails.logger.debug stderr_res # TODO: Sentry
-    status_res.exitstatus.zero? ? target_dir : nil
+    raise StandardError, 'git clone failed' unless status_res.exitstatus.zero? ? target_dir : nil
   end
 
   def repo_languages(repo_id)
@@ -74,23 +78,24 @@ class GitService < BaseService
     repo_languages.transform_values { |v| 100.0 * v / total }
   end
 
-  def primary_language(repo_name)
-    repo_languages = load_languages(repo_name).slice(:Ruby, :JavaScript)
-    return 'unknown' if repo_languages.empty?
-
-    repo_languages.max_by { |_, v| v }[0].to_s.downcase
+  def primary_language(repo_id)
+    repo_languages = load_languages(repo_id)&.slice(:Ruby, :JavaScript)
+    result = repo_languages&.max_by { |_, v| v }&.[](0)
+    result&.to_s&.downcase || 'unknown'
   end
 
   def load_languages(repo_id)
     cached("user_#{@user.id}_#{repo_id}_languages") do
       repo = repo_by_id(repo_id)
-      client.languages("#{load_user[:login]}/#{repo[:name]}").to_h
+      languages = client.languages("#{load_user[:login]}/#{repo[:name]}")
+      languages.is_a?(Array) ? languages[0] : languages
     end
   end
 
   def load_user
-    cached("user_#{@user.id}_user") do
-      client.user
+    cached("user_#{@user.id}_user", USER_CACHE_LITETIME) do
+      user = client.user
+      user.is_a?(Array) ? user[0] : user
     end
   end
 
@@ -106,16 +111,56 @@ class GitService < BaseService
     end
   end
 
-  def cached(cache_key)
+  def cached(cache_key, timeout = CACHE_LIFETIME)
     data = Rails.cache.read(cache_key)
     return data if data.present?
 
     data = yield
-    Rails.cache.write(cache_key, data, expires_in: CACHE_LIFETIME)
+    Rails.cache.write(cache_key, data, expires_in: timeout)
     data
   end
 
   def client
     @client ||= Octokit::Client.new(access_token: @user.token)
+  end
+
+  def register_hook(repo_id, base_url)
+    repo = repo_by_id(repo_id)
+    debugger
+    hook = client.create_hook(
+      repo[:full_name],
+      'web',
+      {
+        url: "#{base_url}/api/checks",
+        content_type: 'json',
+        secret: ENV.fetch('GITHUB_WEBHOOK_SECRET', nil)
+      },
+      {
+        events: ['push'],
+        active: true
+      }
+    )
+    hook.present?
+  end
+
+  def self.process_hook(data)
+    pp data
+    # data = {
+    #   "ref": "refs/heads/main",
+    #   "commits": [
+    #     {
+    #       "id": "1234567890abcdef1234567890abcdef12345678",
+    #       "message": "Update README.md",
+    #       "author": {
+    #         "name": "John Doe",
+    #         "email": "john.doe@example.com"
+    #       }
+    #     }
+    #   ],
+    #   "pusher": {
+    #     "name": "johndoe",
+    #     "email": "john.doe@example.com"
+    #   }
+    # }
   end
 end

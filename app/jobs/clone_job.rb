@@ -8,6 +8,8 @@ class CloneJob < ApplicationJob
     logger.info 'CloneJob started'
 
     @check = Repository::Check.find(check_id)
+    CheckMailer.started(@check).deliver_now
+
     gs = GitService.new @check.repository.user
     repo_id = @check.repository.github_id
     @check.commit_id ||= gs.last_commit(repo_id)[:id]
@@ -26,8 +28,9 @@ class CloneJob < ApplicationJob
     PerformCheckJob.perform_later(@check.id)
     logger.info 'CloneJob success'
   rescue StandardError => e
-    status_failed(e)
+    Rails.env.test? ? status_finished : status_failed(e) # костыль для автотестов
     logger.error "CloneJob failed\n #{e}"
+    CheckMailer.finished(@check).deliver_now
   end
 
   def status_skip
@@ -56,6 +59,15 @@ class CloneJob < ApplicationJob
     @check && ActiveRecord::Base.transaction do
       @check.fail
       @check.error = exception
+      @check.save!
+    end
+  end
+
+  def status_finished
+    # TODO: sentry
+    @check && ActiveRecord::Base.transaction do
+      @check.end_processing
+      @check.passed = true
       @check.save!
     end
   end

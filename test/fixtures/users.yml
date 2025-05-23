@@ -7,4 +7,4 @@ two:
 main:
   email: slkdfjsdlkfjsdlkjf@mail.ru
   nickname: some_user
-  token: <%= ENV[DEV_GIT_TOKEN]%>
+  token: = ENV.fetch('DEV_GIT_TOKEN','token')

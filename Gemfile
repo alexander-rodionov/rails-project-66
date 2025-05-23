@@ -55,6 +55,7 @@ gem 'open3'
 gem 'pg', groups: [:production]
 # gem 'pundit'
 # gem 'ransack'
+gem 'premailer-rails'
 gem 'rollbar'
 gem 'rubocop-rails', groups: %i[development test]
 gem 'sass-rails'
@@ -83,6 +84,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem 'faker'
   gem 'minitest'
   gem 'minitest-power_assert'
   gem 'rubyzip'

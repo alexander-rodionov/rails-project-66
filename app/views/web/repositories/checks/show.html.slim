@@ -6,19 +6,19 @@
     tbody
       tr
         td = t('checks.show.created')
-        td = @check.created_at
+        td = human_date(@check.created_at)
       tr
         td = t('checks.show.status')
-        td = human_state(@check)
+        td = @check.human_state
       tr
         td = t('checks.show.check_passed')
-        td = @check.passed?
+        td = @check.passed
       tr
         td = t('checks.show.error_count')
         td = @check.error_count
       tr
         td = t('checks.show.commit_id')
-        td = @check.short_id && link_to(@check.short_id, git_commit_link(@check))
+        td = @check.short_id && link_to(@check.short_id, @check.git_commit_link, target: '_blank', rel: 'noopener')
       - if @check.error
         tr
           td = t('checks.show.error')
@@ -36,7 +36,7 @@
           tr
             - if result.keys.include? :link
               td colspan="3"
-                = link_to result[:link], @check.file_link(result[:link])
+                = link_to result[:link], @check.file_link(result[:link]), target: '_blank', rel: 'noopener'
             - else
               td = result['message']
               td = result['rule']
