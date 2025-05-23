@@ -1,5 +1,5 @@
 # Omakase Ruby styling for Rails
-#inherit_gem: { rubocop-rails: rubocop.yml }1
+# inherit_gem: { rubocop-rails: rubocop.yml }
 
 AllCops:
   SuggestExtensions: false
@@ -7,18 +7,17 @@ AllCops:
     - Rakefile
     - Gemfile
     - '**/*.rb'
-    # - '**/*.rake'
-    # - '**/*.ru'
-    # - '**/*.gemspec'
-    # - '**/Gemfile'
-    # - '**/Rakefile'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/*.gemspec'
+    - '**/Gemfile'
+    - '**/Rakefile'
     - db/*.rb
     - db/**/*.rb
     - db/**/*.rb
     - db/**/*.rake
     - app/**/*.rb
   Exclude:
-    - db/*.rb
     - bin/**/*
     - tmp/**/*
     - vendor/**/*
