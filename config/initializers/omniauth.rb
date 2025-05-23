@@ -2,10 +2,10 @@
 
 OmniAuth.config.allowed_request_methods = [:post]
 OmniAuth.config.silence_get_warning = true
-OmniAuth.config.full_host = ENV.fetch('BASE_URL',nil) if ENV.fetch('BASE_URL', nil).present?
+OmniAuth.config.full_host = ENV.fetch('BASE_URL', nil) if ENV.fetch('BASE_URL', nil).present?
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  if Rails.env.development? && ( ENV.fetch('TUNNELED_SERVER', 0) == '0' )
+  if Rails.env.development? && (ENV.fetch('TUNNELED_SERVER', 0) == '0')
     provider :developer
   else
     provider :github,

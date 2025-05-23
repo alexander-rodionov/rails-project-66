@@ -16,7 +16,9 @@ AllCops:
     - 'db/**/*.rb'
     - 'db/**/*.rake'
   Exclude:
-    - bin/**
+    - bin/**/*
+    - tmp/**/*
+    - vendor/**/*
 
 plugins: rubocop-rails
 
@@ -28,6 +30,18 @@ Style/StringLiterals:
 
 # Style/FrozenStringLiteralComment:
 #   Enabled: true
+
+Metrics/ClassLength:
+  Max: 1000
+
+Metrics/MethodLength:
+  Max: 200
+
+Metrics/CyclomaticComplexity:
+  Max: 15
+
+Metrics/PerceivedComplexity:
+  Max: 15
 
 Layout/EmptyLines:
   Enabled: true
@@ -211,9 +225,6 @@ Metrics/BlockLength:
   Enabled: false
 
 Layout/LineLength:
-  Enabled: false
-
-Metrics/MethodLength:
   Enabled: false
 
 Rails/CreateTableWithTimestamps:

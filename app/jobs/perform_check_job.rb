@@ -66,7 +66,6 @@ class PerformCheckJob < ApplicationJob
   end
 
   def status_failed(exception)
-    # TODO: sentry
     @check && ActiveRecord::Base.transaction do
       @check.fail
       @check.error = exception

@@ -3,6 +3,5 @@
 module Web
   class ApplicationController < ApplicationController
     allow_browser versions: :modern
-
   end
 end

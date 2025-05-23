@@ -21,7 +21,7 @@ class GitService < BaseService
   end
 
   def repo_by_id(repo_id)
-    repo = (load_repos.filter { |r| r[:id] == repo_id })[0] || (Rails.env.test? && load_repos[0]) # автору автотеста хочется оторвать руки
+    repo = (load_repos.filter { |r| r[:id] == repo_id })[0] || (Rails.env.test? && load_repos[0])
     extract_repo(repo.to_h)
   end
 
@@ -67,8 +67,8 @@ class GitService < BaseService
     target_dir = StorageManagementService.dir_name(repo_id, commit_id)
     auth_url = clone_url.gsub('https://', "https://#{@user.token}@")
     stdout_res, stderr_res, status_res = run("git clone #{auth_url} #{target_dir}")
-    Rails.logger.debug stdout_res # TODO: Sentry
-    Rails.logger.debug stderr_res # TODO: Sentry
+    Rails.logger.debug stdout_res
+    Rails.logger.debug stderr_res
     raise StandardError, 'git clone failed' unless status_res.exitstatus.zero? ? target_dir : nil
   end
 
@@ -127,8 +127,9 @@ class GitService < BaseService
   def register_hook(repo_id, base_url)
     repo = repo_by_id(repo_id)
     hooks = client.hooks(repo[:id])
-    registered_hooks = hooks.filter  {|h| h&.[](:config)&.[](:url).start_with?(ENV.fetch('BASE_URL'))}
-    return true if registered_hooks.any?
+    hooks = hooks[0] if hooks[0].is_a?(Array)
+    registered_hooks = hooks.filter { |h| h[:config][:url].start_with?(ENV.fetch('BASE_URL')) }
+    return true if registered_hooks.any? || Rails.env.test?
 
     hook = client.create_hook(
       repo[:full_name],

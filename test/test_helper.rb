@@ -1,27 +1,5 @@
 # frozen_string_literal: true
 
-# ENV['RAILS_ENV'] ||= 'test'
-# require_relative '../config/environment'
-# require 'rails/test_help'
-# require 'webmock/minitest'
-# require 'minitest/autorun'
-# require 'minitest/power_assert'
-
-# WebMock.disable_net_connect!(allow: 'api.github.com')
-# module ActiveSupport
-#   class TestCase
-#     include Minitest::PowerAssert::Assertions
-
-#     # Run tests in parallel with specified workers
-#     parallelize(workers: :number_of_processors)
-
-#     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-#     fixtures :all
-
-#     # Add more helper methods to be used by all tests here...
-#   end
-# end
-
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
@@ -48,23 +26,27 @@ module ActiveSupport
 
       url = Addressable::Template.new 'https://api.github.com/repositories/{id}/commits'
       stub_request(:any, url)
-        # .with(headers: { 'Accept' => 'application/vnd.github.v3+json' })
         .to_return(status: 200, body: generate_fake_github_commit, headers: {})
 
       # url = Addressable::Template.new "https://api.github.com/repositories/{id}/commits"
       stub_request(:any, 'https://api.github.com/user/repos?sort=asc&type=owner')
-        # .with(headers: { 'Accept' => 'application/vnd.github.v3+json' })
         .to_return(status: 200, body: generate_fake_github_repo, headers: {})
 
       # url = Addressable::Template.new "https://api.github.com/repositories/{id}/commits"
       stub_request(:any, 'https://api.github.com/user')
-        # .with(headers: { 'Accept' => 'application/vnd.github.v3+json' })
         .to_return(status: 200, body: generate_fake_github_user, headers: {})
 
       url = Addressable::Template.new 'https://api.github.com/repos/{id1}/{id2}/languages'
       stub_request(:any, url)
-        # .with(headers: { 'Accept' => 'application/vnd.github.v3+json' })
         .to_return(status: 200, body: generate_fake_languages, headers: {})
+
+      url = Addressable::Template.new 'https://api.github.com/repositories/{id}/hooks'
+      stub_request(:get, url)
+        .to_return(status: 200, body: generate_fake_github_hooks_response, headers: {})
+
+      url = Addressable::Template.new 'https://api.github.com/repos/{id1}/{id2}/hooks'
+      stub_request(:post, url)
+        .to_return(status: 200, body: '', headers: {})
     end
   end
 end
@@ -374,36 +356,36 @@ module ActionDispatch
         ]
       }]
     end
-  end
 
-  def generate_fake_github_hooks_response
-    owner = Faker::Internet.unique.username(specifier: 5..15)
-    repo = Faker::App.name.downcase.gsub(' ', '-')
+    def generate_fake_github_hooks_response
+      owner = Faker::Internet.unique.username(specifier: 5..15)
+      repo = Faker::App.name.downcase.gsub(' ', '-')
 
-    hook_id = Faker::Number.unique.number(digits: 8)
-    events = ['push', 'pull_request'].sample(2)
-    active = [true, false].sample
-    {
-      id: hook_id,
-      name: "web",
-      active: active,
-      events: events,
-      config: {
-        url: "https://example.com/webhooks/#{SecureRandom.hex(10)}",
-        content_type: "json",
-        insecure_ssl: "0",
-        secret: "********" # GitHub always masks secrets in responses
-      },
-      updated_at: Faker::Time.between(from: 1.year.ago, to: Time.now).iso8601,
-      created_at: Faker::Time.between(from: 2.years.ago, to: 1.year.ago).iso8601,
-      url: "https://api.github.com/repos/#{owner}/#{repo}/hooks/#{hook_id}",
-      test_url: "https://api.github.com/repos/#{owner}/#{repo}/hooks/#{hook_id}/test",
-      ping_url: "https://api.github.com/repos/#{owner}/#{repo}/hooks/#{hook_id}/pings",
-      last_response: {
-        code: [200, 404, 500].sample,
-        status: ["active", "inactive"].sample,
-        message: ["OK", "Timeout", "Service unavailable"].sample
-      }
-    }
+      hook_id = Faker::Number.unique.number(digits: 8)
+      events = %w[push pull_request].sample(2)
+      active = [true, false].sample
+      [{
+        id: hook_id,
+        name: 'web',
+        active: active,
+        events: events,
+        config: {
+          url: "https://example.com/webhooks/#{SecureRandom.hex(10)}",
+          content_type: 'json',
+          insecure_ssl: '0',
+          secret: '********' # GitHub always masks secrets in responses
+        },
+        updated_at: Faker::Time.between(from: 1.year.ago, to: Time.zone.now).iso8601,
+        created_at: Faker::Time.between(from: 2.years.ago, to: 1.year.ago).iso8601,
+        url: "https://api.github.com/repos/#{owner}/#{repo}/hooks/#{hook_id}",
+        test_url: "https://api.github.com/repos/#{owner}/#{repo}/hooks/#{hook_id}/test",
+        ping_url: "https://api.github.com/repos/#{owner}/#{repo}/hooks/#{hook_id}/pings",
+        last_response: {
+          code: [200, 404, 500].sample,
+          status: %w[active inactive].sample,
+          message: ['OK', 'Timeout', 'Service unavailable'].sample
+        }
+      }]
+    end
   end
 end
