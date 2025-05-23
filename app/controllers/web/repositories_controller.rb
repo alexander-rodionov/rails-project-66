@@ -37,11 +37,11 @@ module Web
     private
 
     def set_github_id
-      @github_id = params.expect(repository: [:github_id])[:github_id].to_i
+      @github_id = params.require(:repository).permit(:github_id)[:github_id]
     end
 
     def set_repository
-      @repository = Repository.find(params.expect(:id))
+      @repository = Repository.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       @repository = nil
     end

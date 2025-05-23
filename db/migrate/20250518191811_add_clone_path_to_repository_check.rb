@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddClonePathToRepositoryCheck < ActiveRecord::Migration[8.0]
+class AddClonePathToRepositoryCheck < ActiveRecord::Migration[7.2]
   def change
     add_column :repository_checks, :clone_path, :string
     if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'

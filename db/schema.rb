@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 20_250_520_174_840) do
+ActiveRecord::Schema[7.2].define(version: 20_250_523_202_347) do
   create_table 'repositories', force: :cascade do |t|
     t.integer 'user_id', null: false
     t.string 'name'

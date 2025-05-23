@@ -10,7 +10,8 @@ Bundler.require(*Rails.groups)
 
 module RailsProject66
   class Application < Rails::Application
-    config.load_defaults 8.0
+    # config.load_defaults 8.0
+    config.load_defaults 7.2
 
     config.generators do |g|
       g.template_engine :slim

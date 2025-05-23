@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateRepositories < ActiveRecord::Migration[8.0]
+class CreateRepositories < ActiveRecord::Migration[7.2]
   def change
     create_table :repositories do |t|
       t.references :user, null: false, foreign_key: true
