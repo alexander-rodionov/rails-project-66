@@ -6,7 +6,6 @@
 
 git_token.txt
 
-node_modules/
 
 # Ignore bundler config.
 /.bundle
