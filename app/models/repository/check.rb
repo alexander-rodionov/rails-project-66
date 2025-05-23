@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/ClassAndModuleChildren
 class Repository::Check < ApplicationRecord
   include AASM
   belongs_to :repository
@@ -100,4 +99,3 @@ class Repository::Check < ApplicationRecord
     I18n.t("aasm.state_names.#{aasm_state}")
   end
 end
-# rubocop:enable Style/ClassAndModuleChildren

@@ -71,8 +71,8 @@ Rails.application.configure do
     password: ENV.fetch('MAIL_PASSWORD', nil),
     authentication: 'plain',
     enable_starttls_auto: true,
-    open_timeout: 180,
-    read_timeout: 180
+    open_timeout: 300,
+    read_timeout: 300
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

@@ -79,9 +79,9 @@ class GitService < BaseService
   end
 
   def primary_language(repo_id)
-    repo_languages = load_languages(repo_id)&.slice(:Ruby, :JavaScript)
-    result = repo_languages&.max_by { |_, v| v }&.[](0)
-    result&.to_s&.downcase || 'unknown'
+    repo_languages = load_languages(repo_id).slice(:Ruby, :JavaScript)
+    result = repo_languages.max_by { |_, v| v }[0]
+    result.to_s.downcase || 'unknown'
   end
 
   def load_languages(repo_id)

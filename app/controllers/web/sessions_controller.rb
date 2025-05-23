@@ -17,9 +17,21 @@ module Web
     end
 
     def extract_auth_values
-      [auth_hash&.[]('info')&.[]('email'),
-       auth_hash&.[]('info')&.[]('nickname') || auth_hash&.[]('info')&.[]('name') || 'Unnamed',
-       auth_hash&.[]('credentials')&.[]('token')]
+      [extract_auth_value_email,
+       extract_auth_value_name,
+       extract_auth_values_token]
+    end
+
+    def extract_auth_value_email
+      auth_hash&.[]('info')&.[]('email')
+    end
+
+    def extract_auth_value_name
+      auth_hash&.[]('info')&.[]('nickname') || auth_hash&.[]('info')&.[]('name') || 'Unnamed'
+    end
+
+    def extract_auth_values_token
+      auth_hash&.[]('credentials')&.[]('token')
     end
 
     def auth; end

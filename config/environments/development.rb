@@ -54,8 +54,8 @@ Rails.application.configure do
     password: ENV.fetch('MAIL_PASSWORD'),
     authentication: 'plain',
     enable_starttls_auto: true,
-    open_timeout: 180,
-    read_timeout: 180
+    open_timeout: 300,
+    read_timeout: 300
   }
 
   # Print deprecation notices to the Rails logger.

@@ -32,10 +32,10 @@ Style/StringLiterals:
   EnforcedStyle: single_quotes
   ConsistentQuotesInMultiline: true
   AutoCorrect: true
-  #IgnoredPatterns: []
 
-# Style/FrozenStringLiteralComment:
-#   Enabled: true
+Style/ClassAndModuleChildren:
+  Exclude:
+    - app/models/repository/check.rb
 
 Metrics/ClassLength:
   Max: 1000
@@ -44,10 +44,10 @@ Metrics/MethodLength:
   Max: 200
 
 Metrics/CyclomaticComplexity:
-  Max: 15
+  Max: 7
 
 Metrics/PerceivedComplexity:
-  Max: 15
+  Max: 8
 
 Layout/EmptyLines:
   Enabled: true
@@ -142,13 +142,6 @@ Layout/IndentationStyle:
 
 Layout/ExtraSpacing:
   Enabled: true
-
-# Prefer single-quoted strings when you don't need string interpolation or special symbols.
-# Style/StringLiterals:
-#   Enabled: true
-#   EnforcedStyle: single_quotes
-#   #EnforcedStyle: double_quotes
-#   AutoCorrect: true
 
 # Use underscores(_) as thousands separator and separate every 3 digits with them.
 Style/NumericLiterals:
