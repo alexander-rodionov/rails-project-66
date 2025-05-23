@@ -15,6 +15,7 @@ AllCops:
     - 'db/**.rb'
     - 'db/**/*.rb'
     - 'db/**/*.rake'
+    - app/**/*.rb
   Exclude:
     - bin/**/*
     - tmp/**/*

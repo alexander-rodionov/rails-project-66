@@ -128,7 +128,7 @@ class GitService < BaseService
     repo = repo_by_id(repo_id)
     hooks = client.hooks(repo[:id])
     hooks = hooks[0] if hooks[0].is_a?(Array)
-    registered_hooks = hooks.filter { |h| h[:config][:url].start_with?(ENV.fetch('BASE_URL','')) }
+    registered_hooks = hooks.filter { |h| h[:config][:url].start_with?(ENV.fetch('BASE_URL', '')) }
     return true if registered_hooks.any? || Rails.env.test?
 
     hook = client.create_hook(
