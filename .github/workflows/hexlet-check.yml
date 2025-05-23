@@ -15,11 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Remove old artifacts
-        run: rm -rf /project/code
-
       - uses: actions/checkout@v4
 
       - name: Hexlet project check
