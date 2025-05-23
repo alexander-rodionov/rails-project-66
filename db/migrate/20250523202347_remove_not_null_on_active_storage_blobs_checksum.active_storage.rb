@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'fileutils'
 
 # This migration comes from active_storage (originally 20211119233751)
