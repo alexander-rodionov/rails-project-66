@@ -126,7 +126,6 @@ class GitService < BaseService
 
   def register_hook(repo_id, base_url)
     repo = repo_by_id(repo_id)
-    debugger
     hook = client.create_hook(
       repo[:full_name],
       'web',
