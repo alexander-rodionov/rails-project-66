@@ -30,7 +30,7 @@ class PerformCheckJob < ApplicationJob
       status_end_processing
       logger.info 'PerformCheckJob success'
       begin
-        CheckMailer.finished(@check).deliver_later
+        notify_finish(@check)
       rescue StandardError => e
         Rails.logger.error "Finished email sending failure #{e}"
         register_rollbar_error(e)
@@ -40,7 +40,7 @@ class PerformCheckJob < ApplicationJob
     status_failed(e)
     logger.info 'PerformCheckJob failed'
     register_rollbar_error(e)
-    CheckMailer.finished(@check).deliver_later
+    notify_finish(@check)
   end
 
   def status_no_checks
