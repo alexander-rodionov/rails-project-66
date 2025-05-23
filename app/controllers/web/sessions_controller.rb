@@ -49,8 +49,8 @@ module Web
           'provider' => 'developer',
           'uid' => '12345',
           'info' => {
-            'email' => ENV.fetch('DEV_GIT_EMAIL'),
-            'nickname' => ENV.fetch('DEV_GIT_NICKNAME')
+            'email' => ENV.fetch('DEV_GIT_EMAIL', ''),
+            'nickname' => ENV.fetch('DEV_GIT_NICKNAME', '')
           },
           'credentials' => {
             'token' => ENV.fetch('DEV_GIT_TOKEN', 'token')
