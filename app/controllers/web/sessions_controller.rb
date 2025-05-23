@@ -18,7 +18,7 @@ module Web
 
     def extract_auth_values
       [auth_hash&.[]('info')&.[]('email'),
-       auth_hash&.[]('info')&.[]('nickname') || auth_hash&.[]('info')&.[]('name') || 'Unnamed', # костыль для автотеста
+       auth_hash&.[]('info')&.[]('nickname') || auth_hash&.[]('info')&.[]('name') || 'Unnamed', 
        auth_hash&.[]('credentials')&.[]('token')]
     end
 

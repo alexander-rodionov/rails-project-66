@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
                   user: current_user,
                   params: params.to_unsafe_h)
   rescue StandardError => e
-    Rails.logger.warning "Rollbar exception #{e}"
+    Rails.logger.warn "Rollbar exception #{e}"
   end
 
   def handle_error(exception)
