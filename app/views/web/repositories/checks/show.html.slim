@@ -18,7 +18,7 @@
         td = @check.error_count
       tr
         td = t('checks.show.commit_id')
-        td = @check.short_id && link_to(@check.short_id, sanitize(@check.git_commit_link), target: '_blank', rel: 'noopener')
+        td = @check.short_id && link_to(@check.short_id, safe_url(@check.git_commit_link), target: '_blank', rel: 'noopener')
       - if @check.error
         tr
           td = t('checks.show.error')
@@ -36,7 +36,7 @@
           tr
             - if result.keys.include? :link
               td colspan="3"
-                = link_to result[:link], sanitize(@check.file_link(result[:link])), target: '_blank', rel: 'noopener'
+                = link_to result[:link], safe_url(@check.file_link(result[:link])), target: '_blank', rel: 'noopener'
             - else
               td = result['message']
               td = result['rule']
