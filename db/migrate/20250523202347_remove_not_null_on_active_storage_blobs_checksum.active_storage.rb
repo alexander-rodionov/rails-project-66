@@ -9,6 +9,6 @@ class RemoveNotNullOnActiveStorageBlobsChecksum < ActiveRecord::Migration[6.0]
 
     change_column_null(:active_storage_blobs, :checksum, true)
 
-    FileUtils.cp '/code/db/queue_schema.rb.bak', '/code/db/queue_schema.rb'
+    #FileUtils.cp '/code/db/queue_schema.rb.bak', '/code/db/queue_schema.rb'
   end
 end
