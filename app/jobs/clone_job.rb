@@ -8,7 +8,7 @@ class CloneJob < ApplicationJob
     logger.info 'CloneJob started'
 
     @check = Repository::Check.find(check_id)
-    CheckMailer.started(@check).deliver_now
+    CheckMailer.started(@check).deliver_later
 
     gs = GitService.new @check.repository.user
     repo_id = @check.repository.github_id
@@ -31,7 +31,7 @@ class CloneJob < ApplicationJob
     Rails.env.test? ? status_finished : status_failed(e) # костыль для автотестов
     logger.error "CloneJob failed\n #{e}"
     register_rollbar_error(e)
-    CheckMailer.finished(@check).deliver_now
+    CheckMailer.finished(@check).deliver_later
   end
 
   def status_skip
