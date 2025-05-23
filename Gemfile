@@ -46,6 +46,7 @@ gem 'thruster', require: false
 
 gem 'aasm'
 gem 'dotenv-rails', groups: %i[development test]
+gem 'dry-container'
 gem 'hotwire-rails'
 gem 'html2slim', groups: %i[development test]
 # gem 'kaminari'

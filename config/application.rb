@@ -20,6 +20,7 @@ module RailsProject66
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
     config.autoload_paths += Dir["#{config.root}/app/mailers/concerns/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/lib/stubs/**/"]
     # Rails.logger.debug config.autoload_paths
   end
 end

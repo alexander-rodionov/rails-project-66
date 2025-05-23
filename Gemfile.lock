@@ -116,6 +116,8 @@ GEM
       dotenv (= 3.1.8)
       railties (>= 6.1)
     drb (2.2.1)
+    dry-container (0.11.0)
+      concurrent-ruby (~> 1.0)
     ed25519 (1.4.0)
     erubi (1.13.1)
     et-orbi (1.2.11)
@@ -481,6 +483,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   dotenv-rails
+  dry-container
   faker
   faraday-retry
   hotwire-rails
