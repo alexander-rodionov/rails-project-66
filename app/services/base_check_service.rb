@@ -21,8 +21,8 @@ class BaseCheckService < BaseService
 
     parsed_data = JSON.parse(stdout_res)
     [false, parse_result(parsed_data)]
-  rescue StandardError
-    # TODO: Sentry
+  rescue StandardError => e
+    register_rollbar_error(e)
     [nil, nil]
   end
 

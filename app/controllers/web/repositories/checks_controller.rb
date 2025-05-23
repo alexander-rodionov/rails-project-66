@@ -11,8 +11,8 @@ module Web
       def show; end
 
       def create
-        check = @repository.checks.create!
-        CloneJob.perform_later(check.id)
+        @check = @repository.checks.create!
+        CloneJob.perform_later(@check.id)
         redirect_to repository_path(@repository)
       end
 

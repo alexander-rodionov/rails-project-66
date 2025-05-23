@@ -88,7 +88,7 @@ class GitService < BaseService
     cached("user_#{@user.id}_#{repo_id}_languages") do
       repo = repo_by_id(repo_id)
       languages = client.languages("#{load_user[:login]}/#{repo[:name]}")
-      languages.is_a?(Array) ? languages[0] : languages
+      languages.is_a?(Array) ? languages[0].to_h : languages.to_h
     end
   end
 
@@ -126,6 +126,10 @@ class GitService < BaseService
 
   def register_hook(repo_id, base_url)
     repo = repo_by_id(repo_id)
+    hooks = client.hooks(repo[:id])
+    registered_hooks = hooks.filter  {|h| h&.[](:config)&.[](:url).start_with?(ENV.fetch('BASE_URL'))}
+    return true if registered_hooks.any?
+
     hook = client.create_hook(
       repo[:full_name],
       'web',
@@ -139,27 +143,8 @@ class GitService < BaseService
         active: true
       }
     )
-    hook.present?
-  end
+    Rails.logger("Can't register hook") if hook.blank?
 
-  def self.process_hook(data)
-    pp data
-    # data = {
-    #   "ref": "refs/heads/main",
-    #   "commits": [
-    #     {
-    #       "id": "1234567890abcdef1234567890abcdef12345678",
-    #       "message": "Update README.md",
-    #       "author": {
-    #         "name": "John Doe",
-    #         "email": "john.doe@example.com"
-    #       }
-    #     }
-    #   ],
-    #   "pusher": {
-    #     "name": "johndoe",
-    #     "email": "john.doe@example.com"
-    #   }
-    # }
+    hook.present?
   end
 end

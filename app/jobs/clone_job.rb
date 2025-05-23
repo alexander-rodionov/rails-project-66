@@ -30,6 +30,7 @@ class CloneJob < ApplicationJob
   rescue StandardError => e
     Rails.env.test? ? status_finished : status_failed(e) # костыль для автотестов
     logger.error "CloneJob failed\n #{e}"
+    register_rollbar_error(e)
     CheckMailer.finished(@check).deliver_now
   end
 

@@ -11,4 +11,11 @@ class BaseService
   def not_implemented_error
     raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
   end
+
+  def register_rollbar_error(exception = nil)
+    Rollbar.error(exception || 'No exception',
+                  request: request,
+                  user: current_user,
+                  params: params.to_unsafe_h)
+  end
 end
