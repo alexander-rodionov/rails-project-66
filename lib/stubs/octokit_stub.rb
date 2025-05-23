@@ -81,7 +81,7 @@ module Stubs
 
       def generate_fake_github_repo(owner_login = nil)
         owner = owner_login || Faker::Internet.unique.username(specifier: 5..15)
-        repo_name = Faker::App.name.downcase.gsub(' ', '-')
+        repo_name = Faker::App.name.downcase.tr(' ', '-')
         created_at = Faker::Date.between(from: '2010-01-01', to: Time.zone.today).iso8601
         updated_at = Faker::Date.between(from: created_at, to: Time.zone.today).iso8601
         pushed_at = Faker::Date.between(from: updated_at, to: Time.zone.today).iso8601
@@ -186,7 +186,7 @@ module Stubs
             allow_forking: true,
             is_template: [true, false].sample,
             web_commit_signoff_required: [true, false].sample,
-            topics: Array.new(Faker::Number.between(from: 0, to: 5)).map { Faker::App.unique.name.downcase.gsub(' ', '-') },
+            topics: Array.new(Faker::Number.between(from: 0, to: 5)).map { Faker::App.unique.name.downcase.tr(' ', '-') },
             visibility: %w[public private].sample,
             forks: Faker::Number.between(from: 0, to: 1000),
             open_issues: Faker::Number.between(from: 0, to: 100),
@@ -209,7 +209,7 @@ module Stubs
 
       def generate_fake_github_commit
         author_login = Faker::Internet.unique.username(specifier: 5..15)
-        repo_name = Faker::App.name.downcase.gsub(' ', '-')
+        repo_name = Faker::App.name.downcase.tr(' ', '-')
         repo_full_name = "#{author_login}/#{repo_name}"
         commit_date = Faker::Time.between(from: 1.year.ago, to: Time.zone.now).iso8601
         sha = SecureRandom.hex(20)
@@ -299,7 +299,7 @@ module Stubs
 
       def generate_fake_github_hooks_response
         owner = Faker::Internet.unique.username(specifier: 5..15)
-        repo = Faker::App.name.downcase.gsub(' ', '-')
+        repo = Faker::App.name.downcase.tr(' ', '-')
 
         hook_id = Faker::Number.unique.number(digits: 8)
         events = %w[push pull_request].sample(2)

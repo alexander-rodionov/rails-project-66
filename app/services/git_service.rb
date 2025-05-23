@@ -41,7 +41,7 @@ class GitService < BaseService
   end
 
   def last_commit(repo_id)
-    commits(repo_id).max { |a, b| a[:date] <=> b[:date] }
+    commits(repo_id).max_by { |a| a[:date] }
   end
 
   def commit_by_id(repo_id, commit_id)

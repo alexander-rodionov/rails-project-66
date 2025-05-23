@@ -65,7 +65,7 @@ class Repository::Check < ApplicationRecord
 
       offenses = filter_positive_offenses(check_result)
       offenses_array = extract_offense_values(offenses)
-      offenses_array.reduce([]) { |a, v| a + v }
+      offenses_array.sum
     end || {}
   end
 

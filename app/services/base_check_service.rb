@@ -5,8 +5,8 @@ class BaseCheckService < BaseService
 
   def self.checks_factory(languages)
     [
-      languages.keys.include?(:Ruby) ? RubyCheckService : nil,
-      languages.keys.include?(:JavaScript) ? EslintCheckService : nil
+      languages.key?(:Ruby) ? RubyCheckService : nil,
+      languages.key?(:JavaScript) ? EslintCheckService : nil
     ].compact
   end
 
