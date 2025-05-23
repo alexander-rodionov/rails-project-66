@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stub
+module Stubs
   module OctokitStubGenerators1
     def generate_fake_github_user
       login = Faker::Internet.unique.username(specifier: 5..15)

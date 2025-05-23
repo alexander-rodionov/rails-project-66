@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Stub
+module Stubs
   module OctokitStubGenerators2
     def generate_fake_languages
       { Ruby: 16_362, Shell: 131, Makefile: 29 }
