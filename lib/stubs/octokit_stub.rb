@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require_relative('octokit_stub_generators')
+require_relative('octokit_stub_generators_1')
+require_relative('octokit_stub_generators_2')
 
 module Stubs
   module OctokitStub
     class Client
-      include OctokitStubGenrators1
-      include OctokitStubGenrators2
+      include OctokitStubGenerators1
+      include OctokitStubGenerators2
       def initialize(token)
         Rails.logger.debug token
       end
