@@ -64,7 +64,7 @@ ENV PG_USER=postgres
 ENV PG_DATA=wL105z7lDG8H8jM41QmI
 ENV DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 
-RUN SECRET_KEY_BASE_DUMMY=1 bin/rails db:reset
+#RUN SECRET_KEY_BASE_DUMMY=1 bin/rails db:reset
 
 # Run and own only the runtime files as a non-root user for security
 # RUN groupadd --system --gid 1000 rails && \
