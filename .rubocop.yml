@@ -5,21 +5,27 @@ AllCops:
   SuggestExtensions: false
   Include:
     - Rakefile
+    - Gemfile
     - '**/*.rb'
     # - '**/*.rake'
     # - '**/*.ru'
     # - '**/*.gemspec'
     # - '**/Gemfile'
     # - '**/Rakefile'
-    - 'db/*.rb'
-    - 'db/**.rb'
-    - 'db/**/*.rb'
-    - 'db/**/*.rake'
+    - db/*.rb
+    - db/**/*.rb
+    - db/**/*.rb
+    - db/**/*.rake
     - app/**/*.rb
   Exclude:
+    - db/*.rb
     - bin/**/*
     - tmp/**/*
     - vendor/**/*
+    - code/db/*.rb
+    - code/bin/**/*
+    - code/tmp/**/*
+    - code/vendor/**/*
 
 plugins: rubocop-rails
 
