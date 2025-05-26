@@ -7,7 +7,7 @@ module Api
     def register_rollbar_error(exception = nil)
       Rollbar.error(exception || 'No exception',
                     request: request,
-                    user: current_user,
+                    user: nil,
                     params: params.to_unsafe_h)
     rescue StandardError => e
       Rails.logger.warn "Rollbar exception #{e}"

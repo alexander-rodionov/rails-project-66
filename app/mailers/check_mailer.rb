@@ -19,7 +19,7 @@ class CheckMailer < ApplicationMailer
   end
 
   def establish_fields(check)
-    @to_email = ENV.fetch('MAIL_CATCH_EMAIL', nil)
+    @to_email = ENV.fetch('MAIL_CATCH_EMAIL', 'john@doe.com')
     @check = check
   end
 end
