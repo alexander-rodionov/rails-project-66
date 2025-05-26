@@ -124,14 +124,14 @@ class GitService < BaseService
 
   def client
     @client ||= OCTOKIT_MODULE::Client.new(access_token: @user.token)
-    #@client ||= Octokit::Client.new(access_token: @user.token)
+    # @client ||= Octokit::Client.new(access_token: @user.token)
   end
 
   def register_hook(repo_id, base_url)
     repo = repo_by_id(repo_id)
     hooks = client.hooks(repo[:id])
     hooks = hooks[0] if hooks[0].is_a?(Array)
-    registered_hooks = hooks.filter { |h| h[:config][:url].start_with?(ENV.fetch('BASE_URL','')) }
+    registered_hooks = hooks.filter { |h| h[:config][:url].start_with?(ENV.fetch('BASE_URL', '')) }
     return true if registered_hooks.any? || Rails.env.test?
 
     hook = client.create_hook(

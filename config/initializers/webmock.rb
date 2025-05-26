@@ -2,13 +2,13 @@
 
 require 'webmock'
 
-#require_relative '../../lib/stubs/stubs'
+# require_relative '../../lib/stubs/stubs'
 
 # if Rails.env.test?
 #   # WebMock.disable_net_connect!(allow_localhost: true)
 
 #   # url = Addressable::Template.new "https://api.github.com/repositories/{id}/commits"
-#   WebMock.stub_request(:any, 'https://api.github.com/user/repos?sort=asc&type=owner'),                              
+#   WebMock.stub_request(:any, 'https://api.github.com/user/repos?sort=asc&type=owner'),
 #       headers: {
 #         'Accept' => 'application/vnd.github.v3+json',
 #         'User-Agent' => 'Octokit Ruby Gem 10.0.0'

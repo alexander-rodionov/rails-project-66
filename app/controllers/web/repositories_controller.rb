@@ -30,7 +30,7 @@ module Web
         web_path: repo[:html_url],
         clone_path: repo[:clone_url]
       )
-      gs.register_hook(@github_id, ENV.fetch('BASE_URL',''))
+      gs.register_hook(@github_id, ENV.fetch('BASE_URL', ''))
       redirect_to repositories_path
     end
 
