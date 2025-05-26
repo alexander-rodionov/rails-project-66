@@ -7,6 +7,16 @@ require_relative '../../lib/stubs/stubs'
 if Rails.env.test?
   # WebMock.disable_net_connect!(allow_localhost: true)
 
+  # url = Addressable::Template.new "https://api.github.com/repositories/{id}/commits"
+  WebMock.stub_request(:any, 'https://api.github.com/user/repos?sort=asc&type=owner')
+    .with(
+      headers: {
+        'Accept' => 'application/vnd.github.v3+json',
+        'User-Agent' => 'Octokit Ruby Gem 10.0.0'
+      }
+    )
+    .to_return(status: 200, body: Stubs.generate_fake_github_repo, headers: {})
+
   url = Addressable::Template.new 'https://api.github.com/repositories/{id}/commits'
   WebMock.stub_request(:any, url)
          .with(

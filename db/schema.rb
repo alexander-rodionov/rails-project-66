@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,43 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 20_250_520_174_840) do
-  create_table 'repositories', force: :cascade do |t|
-    t.integer 'user_id', null: false
-    t.string 'name'
-    t.string 'full_name'
-    t.string 'language'
-    t.integer 'github_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'clone_path'
-    t.string 'web_path'
-    t.string 'commits_path'
-    t.string 'hooks_path'
-    t.index ['user_id'], name: 'index_repositories_on_user_id'
+ActiveRecord::Schema[7.2].define(version: 2025_05_20_174840) do
+  create_table "repositories", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.string "full_name"
+    t.string "language"
+    t.integer "github_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "clone_path"
+    t.string "web_path"
+    t.string "commits_path"
+    t.string "hooks_path"
+    t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
-  create_table 'repository_checks', force: :cascade do |t|
-    t.integer 'repository_id', null: false
-    t.text 'aasm_state'
-    t.boolean 'passed'
-    t.text 'commit_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'clone_path'
-    t.text 'result'
-    t.string 'error'
-    t.index ['repository_id'], name: 'index_repository_checks_on_repository_id'
+  create_table "repository_checks", force: :cascade do |t|
+    t.integer "repository_id", null: false
+    t.text "aasm_state"
+    t.boolean "passed"
+    t.text "commit_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "clone_path"
+    t.text "result"
+    t.string "error"
+    t.index ["repository_id"], name: "index_repository_checks_on_repository_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email'
-    t.string 'nickname'
-    t.string 'token'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "nickname"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_foreign_key 'repositories', 'users'
-  add_foreign_key 'repository_checks', 'repositories'
+  add_foreign_key "repositories", "users"
+  add_foreign_key "repository_checks", "repositories"
 end
