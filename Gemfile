@@ -58,7 +58,6 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'slim_lint', groups: %i[development test]
 gem 'slim-rails'
-# gem 'solid_queue_dashboard'
 gem 'webmock', groups: %i[test]
 
 group :development, :test do

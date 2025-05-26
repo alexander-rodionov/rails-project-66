@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
 module Web
   class SessionsController < Web::ApplicationController
     def create
@@ -49,3 +51,4 @@ module Web
     end
   end
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

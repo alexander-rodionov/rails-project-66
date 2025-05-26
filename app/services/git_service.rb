@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-# rubocop:disable Metrics/ClassLength
+
+# rubocop:disable Metrics/ClassLength, Metrics/CyclomaticComplexity
+
 class GitService < BaseService
   USER_CACHE_LITETIME = 3.days
   CACHE_LIFETIME = 30.minutes
@@ -149,3 +151,5 @@ class GitService < BaseService
     hook.present?
   end
 end
+
+# rubocop:enable Metrics/ClassLength, Metrics/CyclomaticComplexity

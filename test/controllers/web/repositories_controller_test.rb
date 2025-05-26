@@ -14,11 +14,13 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'new' do
+    puts WebMock::StubRegistry.instance.request_stubs.inspect
     get new_repository_url
     assert_response :success
   end
 
   test 'create' do
+    puts WebMock::StubRegistry.instance.request_stubs.inspect
     id = Faker::Number.number(digits: 10)
     attrs = { github_id: id }
 

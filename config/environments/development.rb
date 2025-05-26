@@ -3,6 +3,8 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  config.active_job.queue_adapter = :async
+
   config.hosts << ENV.fetch('BASE_URL')[%r{http.*://(.*)}, 1]
   config.cache_store = :memory_store, { size: 200.megabytes }
   config.cache_store = :memory_store
