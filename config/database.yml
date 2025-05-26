@@ -1,0 +1,46 @@
+default: &default_sqlite
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+default_pg: &default_pg
+  adapter: postgresql
+  host: <%= ENV['PG_HOST'] %>
+  port: <%= ENV['PG_PORT'] %>
+  database: <%= ENV['PG_NAME'] %>
+  username: <%= ENV['PG_USER'] %>
+  password: <%= ENV['PG_DATA'] %>
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  primary:
+    <<: *default_sqlite
+    database: storage/development.sqlite3
+  queue:
+    <<: *default_sqlite
+    database: storage/production_queue.sqlite3
+    migrations_paths: db/queue_migrate
+
+test:
+  primary:
+    <<: *default_sqlite
+    database: storage/development.sqlite3
+  queue:
+    <<: *default_sqlite
+    database: storage/production_queue.sqlite3
+    migrations_paths: db/queue_migrate
+
+production:
+  primary:
+    <<: *default_pg
+
+  cache:
+    <<: *default_pg
+
+  queue:
+    <<: *default_pg
+
+  cable:
+    <<: *default_pg

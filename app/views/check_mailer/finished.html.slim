@@ -1,0 +1,47 @@
+.container
+  .header
+    h1 = t('email.finished.header')
+  .content
+    table.table
+      tbody
+        tr
+          td = t('checks.show.repository')
+          td = @check.repository.full_name
+        tr
+          td = t('checks.show.commit_id')
+          td = @check.short_id && link_to(@check.short_id,
+            @check.git_commit_link)
+        tr
+          td = t('checks.show.created')
+          td = human_date(@check.created_at)
+        tr
+          td = t('checks.show.status')
+          td = @check.human_state
+        tr
+          td = t('checks.show.check_passed')
+          td = @check.passed
+        tr
+          td = t('checks.show.error_count')
+          td = @check.error_count
+        - if @check.error
+          tr
+            td = t('checks.show.error')
+            td = @check.error
+
+    table.table.table-hover.mb-5
+      thead
+        tr
+          th = t('checks.errors.message')
+          th = t('checks.errors.rule_id')
+          th = t('checks.errors.location')
+      tbody
+        - @check.error_list&.each_value do |check_result|
+          - check_result&.each do |result|
+            tr
+              - if result.keys? :link
+                td colspan="3"
+                  = link_to result[:link], @check.file_link(result[:link])
+              - else
+                td = result['message']
+                td = result['rule']
+                td = result['location']

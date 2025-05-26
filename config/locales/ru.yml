@@ -1,0 +1,161 @@
+ru:
+  header:
+    main: Главная
+    repositories: Репозитории
+    login: Войти
+    logout: Выйти
+
+  welcome:
+    title_1: Привет от Хекслета!
+    title_2: Практические курсы по программированию
+    title_3: Анализатор качества репозиториев
+    title_4: Проект, который помогает автоматически следить за качеством репозиториев на GitHub. Он отслеживает изменения и прогоняет их через встроенные анализаторы. Затем формирует отчеты и отправляет их пользователю.
+    know_more: Узнать больше
+
+  repositories:
+    index:
+      add: Добавить
+      name: Название
+      language: Язык
+      last_check_status: Статус последней проверки
+    show:
+      name: Название
+      language: Язык
+      created: Дата создания
+      updated: Дата обновления
+    actions:
+      create: Создать репозиторий
+      check: Проверить
+  checks:
+    index:
+      number: №
+      status: Статус
+      commit_id: ID коммита
+      check_passed: Проверка пройдена?
+      created: Дата создания
+    show:
+      repository: Репозиторий
+      title: Проверка
+      status: Статус
+      commit_id: ID коммита
+      check_passed: Проверка пройдена?
+      created: Дата создания
+      error_count: Количество замечаний
+      error: Ошибка
+    errors:
+      message: Сообщение
+      rule_id: Идентификатор правила
+      location: Строка и символ
+    actions:
+      to_repository: В репозиторий
+
+
+
+  time:
+    formats:
+      human: "%d %B %Y, %H:%M"
+      short: "%d %B, %H:%M"
+    no_value: Пусто
+
+  date:
+    month_names:
+      - ~
+      - января
+      - февраля
+      - марта
+      - апреля
+      - мая
+      - июня
+      - июля
+      - августа
+      - сентября
+      - октября
+      - ноября
+      - декабря
+
+  aasm:
+    state_names:
+      created: "Создано"
+      cloning: "Клонирование"
+      cloned: "Клонировано"
+      processing: "Обработка"
+      finished: "Завершено"
+      failed: "Неудача"
+      empty: "Пусто"
+
+  message:
+    logged_in: Вход выполнен успешно
+    log_in_error: Войти не получилось
+    logged_out: Выход выполнен успешно
+
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "полминуты"
+      less_than_x_seconds:
+        one:   "меньше секунды"
+        other: "меньше %{count} секунд"
+      x_seconds:
+        one:   "1 секунда"
+        other: "%{count} секунд"
+      less_than_x_minutes:
+        one:   "меньше минуты"
+        other: "меньше %{count} минут"
+      x_minutes:
+        one:   "1 минута"
+        other: "%{count} минут"
+      about_x_hours:
+        one:   "около часа"
+        other: "около %{count} часов"
+      x_days:
+        one:   "1 день"
+        other: "%{count} дней"
+      about_x_months:
+        one:   "около месяца"
+        other: "около %{count} месяцев"
+      x_months:
+        one:   "1 месяц"
+        other: "%{count} месяцев"
+      about_x_years:
+        one:   "около года"
+        other: "около %{count} лет"
+      over_x_years:
+        one:   "больше года"
+        other: "больше %{count} лет"
+      almost_x_years:
+        one:   "почти год"
+        other: "почти %{count} лет"
+      x_years:
+        one:   "1 год"
+        other: "%{count} лет"
+      about_x_hours_ago: "около %{count} часов назад"
+      x_days_ago: "%{count} дней назад"
+      about_x_months_ago: "около %{count} месяцев назад"
+      x_months_ago: "%{count} месяцев назад"
+      about_x_years_ago: "около %{count} лет назад"
+      over_x_years_ago: "больше %{count} лет назад"
+      almost_x_years_ago: "почти %{count} лет назад"
+      x_years_ago: "%{count} лет назад"
+      less_than_x_minutes_ago:
+        one:   "меньше минуты назад"
+        other: "меньше %{count} минут назад"
+      x_minutes_ago:
+        one:   "1 минуту назад"
+        other: "%{count} минут назад"
+      about_x_hours_ago: "около %{count} часов назад"
+      x_days_ago: "%{count} дней назад"
+      about_x_months_ago: "около %{count} месяцев назад"
+      x_months_ago: "%{count} месяцев назад"
+      about_x_years_ago: "около %{count} лет назад"
+      over_x_years_ago: "больше %{count} лет назад"
+      almost_x_years_ago: "почти %{count} лет назад"
+      x_years_ago: "%{count} лет назад"
+
+  email:
+    started:
+      subject: Проверка начата
+      header: Проверка начата
+    finished:
+      subject: Проверка завершена
+      header: Проверка завершена
+      
