@@ -1,6 +1,0 @@
-production:
-  cleanup_repo_job:
-    class: CleanUpRepoJob
-    args: []
-    schedule: every 30 minutes
-
