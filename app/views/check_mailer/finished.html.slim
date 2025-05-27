@@ -38,7 +38,7 @@
         - @check.error_list&.each_value do |check_result|
           - check_result&.each do |result|
             tr
-              - if result.keys? :link
+              - if result.key? :link
                 td colspan="3"
                   = link_to result[:link], @check.file_link(result[:link])
               - else

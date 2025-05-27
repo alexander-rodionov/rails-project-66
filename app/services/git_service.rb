@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength, Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/ClassLength
 
-class GitService < BaseService
+class GitService < BaseCustomService
   USER_CACHE_LITETIME = 3.days
   CACHE_LIFETIME = 30.minutes
   def initialize(user)
@@ -81,9 +81,9 @@ class GitService < BaseService
   end
 
   def primary_language(repo_id)
-    repo_languages = load_languages(repo_id)&.slice(:Ruby, :JavaScript)
-    result = repo_languages&.max_by { |_, v| v }&.[](0)
-    result&.to_s&.downcase || 'unknown'
+    repo_languages = load_languages(repo_id).slice(:Ruby, :JavaScript)
+    result = repo_languages.max_by { |_, v| v }.[](0)
+    result.to_s.downcase || 'unknown'
   end
 
   def load_languages(repo_id)
@@ -156,4 +156,4 @@ class GitService < BaseService
   end
 end
 
-# rubocop:enable Metrics/ClassLength, Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/ClassLength

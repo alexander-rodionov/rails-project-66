@@ -38,5 +38,16 @@ module RailsProject66
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    at_exit do
+      unless Rails.env.test?
+        begin
+          Rails.logger.info('Performing post cleanup job')
+          StorageManagementService.clean_up_directories(complete: true)
+        rescue StandardError
+          # for tests
+        end
+      end
+    end
   end
 end

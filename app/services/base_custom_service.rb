@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class BaseService
+class BaseCustomService
   def run(command)
+    Rails.logger.info("Running command #{command}")
     stdout_res, stderr_res, status_res = Open3.capture3(command)
     [stdout_res, stderr_res, status_res]
   end
@@ -13,9 +14,6 @@ class BaseService
   end
 
   def register_rollbar_error(exception = nil)
-    Rollbar.error(exception || 'No exception',
-                  request: request,
-                  user: current_user,
-                  params: params.to_unsafe_h)
+    Rollbar.error(exception || 'No exception')
   end
 end

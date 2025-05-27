@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
 module Web
   class SessionsController < Web::ApplicationController
     def create
@@ -19,9 +17,23 @@ module Web
     end
 
     def extract_auth_values
-      [auth_hash&.[]('info')&.[]('email'),
-       auth_hash&.[]('info')&.[]('nickname') || auth_hash&.[]('info')&.[]('name') || 'Unnamed',
-       auth_hash&.[]('credentials')&.[]('token')]
+      [
+        extract_auth_values_email,
+        extract_auth_values_name,
+        extract_auth_values_token
+      ]
+    end
+
+    def extract_auth_values_email
+      auth_hash&.[]('info')&.[]('email')
+    end
+
+    def extract_auth_values_name
+      auth_hash&.[]('info')&.[]('nickname') || auth_hash&.[]('info')&.[]('name') || 'Unnamed'
+    end
+
+    def extract_auth_values_token
+      auth_hash&.[]('credentials')&.[]('token')
     end
 
     def auth; end
@@ -51,4 +63,3 @@ module Web
     end
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

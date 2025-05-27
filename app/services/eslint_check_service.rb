@@ -2,7 +2,7 @@
 
 class EslintCheckService < BaseCheckService
   def check_command
-    "npx eslint --format json #{dir}"
+    "npx eslint --config eslint.config.js --format json #{dir}"
   end
 
   def self.language

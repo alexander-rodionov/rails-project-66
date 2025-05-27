@@ -2,7 +2,7 @@
 
 class RubyCheckService < BaseCheckService
   def check_command
-    "rubocop --format json #{dir}"
+    "rubocop --force-default-config --format json #{dir}"
   end
 
   def self.language

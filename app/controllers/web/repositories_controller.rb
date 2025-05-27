@@ -6,6 +6,7 @@ module Web
     before_action :set_repository, only: :show
 
     def index
+      redirect_to root_path unless current_user
       @repositories = Repository.where(user: current_user)
     end
 

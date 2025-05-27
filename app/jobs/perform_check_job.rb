@@ -39,6 +39,7 @@ class PerformCheckJob < ApplicationJob
         register_rollbar_error(e)
       end
     end
+    CleanUpRepoJob.perform_later
   rescue StandardError => e
     status_failed(e)
     logger.info 'PerformCheckJob failed'
@@ -77,9 +78,12 @@ class PerformCheckJob < ApplicationJob
   end
 
   def summary(check, git_service)
-    time_str = 3.hours.from_now.strftime('%d/%m/%Y %H:%M')
-    repo_languages_json = JSON.pretty_generate(git_service.repo_languages(check.repository.github_id).to_json)
-    repo_by_id_json = JSON.pretty_generate(git_service.repo_by_id(check.repository.github_id))
-    time_str + repo_languages_json + repo_by_id_json
+    JSON.pretty_generate(
+      {
+        time: 3.hours.from_now.strftime('%d/%m/%Y %H:%M'),
+        languages: git_service.repo_languages(check.repository.github_id),
+        repo: git_service.repo_by_id(check.repository.github_id)
+      }
+    )
   end
 end

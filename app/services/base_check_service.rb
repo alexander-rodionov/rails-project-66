@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BaseCheckService < BaseService
+class BaseCheckService < BaseCustomService
   attr_accessor :dir, :result
 
   def self.checks_factory(languages)
@@ -22,8 +22,9 @@ class BaseCheckService < BaseService
     parsed_data = JSON.parse(stdout_res)
     [false, parse_result(parsed_data)]
   rescue StandardError => e
+    Rails.logger.error("Check job error: #{e}")
     register_rollbar_error(e)
-    [nil, nil]
+    raise e
   end
 
   def parse_result(_)

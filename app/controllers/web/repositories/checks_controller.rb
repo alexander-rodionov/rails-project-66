@@ -8,7 +8,9 @@ module Web
 
       attr_reader :check
 
-      def show; end
+      def show
+        redirect_to root_path unless current_user && @check
+      end
 
       def create
         @check = @repository.checks.create!
@@ -23,7 +25,7 @@ module Web
       end
 
       def set_check
-        @check = Repository::Check.find(params.require(:id).to_i)
+        @check = Repository::Check.find_by(id: params.require(:id).to_i)
       end
     end
   end

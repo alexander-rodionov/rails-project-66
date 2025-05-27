@@ -3,10 +3,10 @@
 require 'securerandom'
 require 'fileutils'
 
-class StorageManagementService < BaseService
+class StorageManagementService < BaseCustomService
   CACHE_KEY = 'tmp_dirs'
   CACHE_LIFETIME = 1.day
-  TMP_DIRECTORY = Rails.root.join('tmp/repos')
+  TMP_DIRECTORY = Rails.root.join('tmp_repos')
 
   def self.repo_directory_alive?(repo_id, commit_id)
     dir = dir_name(repo_id, commit_id)
@@ -26,10 +26,14 @@ class StorageManagementService < BaseService
     dir
   end
 
-  def self.clean_up_directories
+  def self.clean_up_directories(complete: false)
     existing_dirs = Dir.glob("#{TMP_DIRECTORY}/*")
-    (existing_dirs - required_dirs).each do |dir|
-      FileUtils.rm_rf(dir)
+    if complete
+      FileUtils.rm_rf(existing_dirs)
+    else
+      (existing_dirs - required_dirs).each do |dir|
+        FileUtils.rm_rf(dir)
+      end
     end
   end
 
