@@ -76,8 +76,6 @@ ENV DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 # Entrypoint prepares the database.
 #ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-ENV RAILS_ENV=development
-
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
 #CMD ["./bin/thrust", "./bin/rails", "server", "-b", "0.0.0.0", "-p", "80git add "]
