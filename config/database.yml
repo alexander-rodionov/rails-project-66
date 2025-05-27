@@ -18,28 +18,17 @@ development:
   primary:
     <<: *default_sqlite
     database: storage/development.sqlite3
-  queue:
-    <<: *default_sqlite
-    database: storage/production_queue.sqlite3
-    migrations_paths: db/queue_migrate
 
 test:
   primary:
     <<: *default_sqlite
     database: storage/development.sqlite3
-  queue:
-    <<: *default_sqlite
-    database: storage/production_queue.sqlite3
-    migrations_paths: db/queue_migrate
 
 production:
   primary:
     <<: *default_pg
 
   cache:
-    <<: *default_pg
-
-  queue:
     <<: *default_pg
 
   cable:
