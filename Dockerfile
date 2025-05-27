@@ -38,7 +38,7 @@ RUN bundle install && \
 COPY package.json yarn.lock ./
 RUN yarn install --immutable
 
-RUN npm install eslint@8.56.0 sass globals --save-dev
+RUN npm install eslint sass globals --save-dev
 RUN yarn add bootstrap
 
 # Copy application code
