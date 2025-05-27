@@ -1,6 +1,5 @@
 .container
   - flash.each do |type, message|
-    .alert-dismissible.fade.show
-      class = "alert alert-#{bootstrap_alert_class(type)}"
-      role = 'alert'
+    - @class = bootstrap_alert_class(type)
+    .alert-dismissible.fade.show class="alert alert-#{@class}" role='alert'
       = message

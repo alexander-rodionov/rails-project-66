@@ -21,7 +21,6 @@ class ChecksControllerTest < ActionDispatch::IntegrationTest
     post repository_checks_url(repository)
     assert_response :redirect
 
-    # NOTE: можно избавиться от last?
     check = repository.checks.last
 
     assert { check }

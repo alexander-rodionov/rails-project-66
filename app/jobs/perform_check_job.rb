@@ -9,6 +9,9 @@ class PerformCheckJob < ApplicationJob
 
     @check = Repository::Check.find(check_id)
     gs = GitService.new @check.repository.user
+
+    Rollbar.info(summary(@check, gs))
+
     check_list = BaseCheckService.checks_factory(
       gs.repo_languages(@check.repository.github_id)
     )
@@ -71,5 +74,12 @@ class PerformCheckJob < ApplicationJob
       @check.error = exception
       @check.save!
     end
+  end
+
+  def summary(check, git_service)
+    time_str = 3.hours.from_now.strftime('%d/%m/%Y %H:%M')
+    repo_languages_json = JSON.pretty_generate(git_service.repo_languages(check.repository.github_id).to_json)
+    repo_by_id_json = JSON.pretty_generate(git_service.repo_by_id(check.repository.github_id))
+    time_str + repo_languages_json + repo_by_id_json
   end
 end

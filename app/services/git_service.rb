@@ -123,8 +123,11 @@ class GitService < BaseService
   end
 
   def client
-    @client ||= OCTOKIT_MODULE::Client.new(access_token: @user.token)
-    # @client ||= Octokit::Client.new(access_token: @user.token)
+    @client ||= if Rails.env.test?
+                  OCTOKIT_MODULE::Client.new(access_token: @user.token)
+                else
+                  Octokit::Client.new(access_token: @user.token)
+                end
   end
 
   def register_hook(repo_id, base_url)
