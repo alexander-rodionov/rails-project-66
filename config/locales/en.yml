@@ -1,36 +1,75 @@
 en:
   header:
-    main: Main
+    main: Home
     repositories: Repositories
     login: Log in
     logout: Log out
-  
+
   welcome:
-    title_1: Greetings from Hexlet!
+    title_1: Hello from Hexlet!
     title_2: Practical programming courses
     title_3: Repository Quality Analyzer
-    title_4: A project that helps automatically monitor the quality of repositories on GitHub. It tracks changes and runs them through built-in analyzers. Then it generates reports and sends them to the user.
+    title_4: A project that helps automatically monitor the quality of GitHub repositories. It tracks changes and runs them through built-in analyzers. Then generates reports and sends them to the user.
     know_more: Learn more
-    # title_1: Привет от Хекслета!
-    # title_2: Практические курсы по программированию
-    # title_3: Анализатор качества репозиториев
-    # title_4: Проект, который помогает автоматически следить за качеством репозиториев на Github. Он отслеживает изменения и прогоняет их через встроенные анализаторы. Затем формирует отчеты и отправляет их пользователю.
-    # know_more: Узнать больше
-  
+
   repositories:
     index:
-      add: Append repository
+      add: Add
       name: Name
       language: Language
       last_check_status: Last check status
+    show:
+      name: Name
+      language: Language
+      created: Created at
+      updated: Updated at
     actions:
       create: Create repository
-  
+      check: Check
+  checks:
+    index:
+      number: #
+      status: Status
+      commit_id: Commit ID
+      check_passed: Check passed?
+      created: Created at
+    show:
+      repository: Repository
+      title: Check
+      status: Status
+      commit_id: Commit ID
+      check_passed: Check passed?
+      created: Created at
+      error_count: Issues count
+      error: Error
+    errors:
+      message: Message
+      rule_id: Rule ID
+      location: Line and character
+    actions:
+      to_repository: To repository
+
   time:
     formats:
-      human: "%d %B %Y, %H:%M"
-      short: "%d %B, %H:%M"
+      human: "%B %d, %Y at %H:%M"
+      short: "%B %d at %H:%M"
     no_value: Empty
+
+  date:
+    month_names:
+      - ~
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
 
   aasm:
     state_names:
@@ -41,3 +80,71 @@ en:
       finished: "Finished"
       failed: "Failed"
       empty: "Empty"
+
+  message:
+    logged_in: Successfully logged in
+    log_in_error: Failed to log in
+    logged_out: Successfully logged out
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one:   "less than a second"
+        other: "less than %{count} seconds"
+      x_seconds:
+        one:   "1 second"
+        other: "%{count} seconds"
+      less_than_x_minutes:
+        one:   "less than a minute"
+        other: "less than %{count} minutes"
+      x_minutes:
+        one:   "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one:   "about an hour"
+        other: "about %{count} hours"
+      x_days:
+        one:   "1 day"
+        other: "%{count} days"
+      about_x_months:
+        one:   "about a month"
+        other: "about %{count} months"
+      x_months:
+        one:   "1 month"
+        other: "%{count} months"
+      about_x_years:
+        one:   "about a year"
+        other: "about %{count} years"
+      over_x_years:
+        one:   "over a year"
+        other: "over %{count} years"
+      almost_x_years:
+        one:   "almost a year"
+        other: "almost %{count} years"
+      x_years:
+        one:   "1 year"
+        other: "%{count} years"
+      about_x_hours_ago: "about %{count} hours ago"
+      x_days_ago: "%{count} days ago"
+      about_x_months_ago: "about %{count} months ago"
+      x_months_ago: "%{count} months ago"
+      about_x_years_ago: "about %{count} years ago"
+      over_x_years_ago: "over %{count} years ago"
+      almost_x_years_ago: "almost %{count} years ago"
+      x_years_ago: "%{count} years ago"
+      less_than_x_minutes_ago:
+        one:   "less than a minute ago"
+        other: "less than %{count} minutes ago"
+      x_minutes_ago:
+        one:   "1 minute ago"
+        other: "%{count} minutes ago"
+
+  email:
+    started:
+      subject: Check started
+      header: Check started
+    finished:
+      subject: Check completed
+      header: Check completed
+      
