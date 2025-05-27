@@ -38,7 +38,7 @@ RUN bundle install && \
 COPY package.json yarn.lock ./
 RUN yarn install --immutable
 
-RUN npm install eslint sass globals --save-dev
+RUN npm install eslint @eslint/js eslint sass globals --save-dev
 RUN yarn add bootstrap
 
 # Copy application code
@@ -75,6 +75,8 @@ ENV DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 
 # Entrypoint prepares the database.
 #ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+ENV RAILS_ENV=development
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80

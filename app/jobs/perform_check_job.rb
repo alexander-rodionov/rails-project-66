@@ -39,7 +39,7 @@ class PerformCheckJob < ApplicationJob
         register_rollbar_error(e)
       end
     end
-    CleanUpRepoJob.perform_later
+    #CleanUpRepoJob.perform_later
   rescue StandardError => e
     status_failed(e)
     logger.info 'PerformCheckJob failed'
