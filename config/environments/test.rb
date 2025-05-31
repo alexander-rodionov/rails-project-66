@@ -10,6 +10,10 @@ require 'active_support/core_ext/integer/time'
 Rails.application.configure do
   config.active_job.queue_adapter = :test
 
+  ActiveSupport.on_load(:active_support_test_case) do
+    include ActiveJob::TestHelper
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # While tests run files are not watched, reloading is not necessary.

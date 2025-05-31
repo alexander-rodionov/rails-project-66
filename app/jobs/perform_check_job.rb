@@ -8,12 +8,12 @@ class PerformCheckJob < ApplicationJob
     logger.info 'PerformCheckJob started'
 
     @check = Repository::Check.find(check_id)
-    gs = GitService.new @check.repository.user
+    git_service = GitService.new @check.repository.user
 
-    Rollbar.info(summary(@check, gs))
+    Rollbar.info(summary(@check, git_service))
 
     check_list = BaseCheckService.checks_factory(
-      gs.repo_languages(@check.repository.github_id)
+      git_service.repo_languages(@check.repository.github_id)
     )
 
     if check_list.empty?

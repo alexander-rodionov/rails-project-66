@@ -3,13 +3,17 @@
 module Web
   module Repositories
     class ChecksController < Web::ApplicationController
+      include Pundit::Authorization
+
+      before_action -> { authorize Repository::Check }
+
       before_action :set_repository, only: :create
       before_action :set_check, only: :show
 
       attr_reader :check
 
       def show
-        redirect_to root_path unless current_user && @check
+        redirect_to :repositories unless @check
       end
 
       def create

@@ -87,6 +87,7 @@ ru:
     logged_in: Вход выполнен успешно
     log_in_error: Войти не получилось
     logged_out: Выход выполнен успешно
+    not_authorized: Пользователь не авторизован
 
 
   datetime:

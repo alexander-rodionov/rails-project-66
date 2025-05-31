@@ -16,6 +16,15 @@ module Web
       redirect_to root_path, notice: t('message.logged_in')
     end
 
+    def auth; end
+
+    def destroy
+      session[:user_id] = nil
+      redirect_to root_path, notice: t('message.logged_out')
+    end
+
+    protected
+
     def extract_auth_values
       [
         extract_auth_values_email,
@@ -35,15 +44,6 @@ module Web
     def extract_auth_values_token
       auth_hash&.[]('credentials')&.[]('token')
     end
-
-    def auth; end
-
-    def destroy
-      session[:user_id] = nil
-      redirect_to root_path, notice: t('message.logged_out')
-    end
-
-    protected
 
     def auth_hash
       if Rails.env.development?

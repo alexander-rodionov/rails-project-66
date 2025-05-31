@@ -35,7 +35,7 @@ class Repository::Check < ApplicationRecord
     end
 
     event :end_processing do
-      transitions from: :created, to: :finished # костыль для автотестов
+      transitions from: :created, to: :finished
       transitions from: :processing, to: :finished
     end
 

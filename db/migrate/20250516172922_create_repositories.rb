@@ -7,7 +7,7 @@ class CreateRepositories < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :full_name
       t.string :language
-      t.integer :github_id
+      t.integer :github_id, null: false, index: { unique: true }
 
       t.timestamps
     end
