@@ -16,19 +16,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_20_174840) do
     t.string "name"
     t.string "full_name"
     t.string "language"
-    t.integer "github_id"
+    t.integer "github_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "clone_path"
     t.string "web_path"
     t.string "commits_path"
     t.string "hooks_path"
+    t.index ["github_id"], name: "index_repositories_on_github_id", unique: true
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
   create_table "repository_checks", force: :cascade do |t|
     t.integer "repository_id", null: false
-    t.text "aasm_state"
+    t.text "aasm_state", default: "created", null: false
     t.boolean "passed"
     t.text "commit_id"
     t.datetime "created_at", null: false
@@ -40,11 +41,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_20_174840) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
+    t.string "email", null: false
     t.string "nickname"
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "repositories", "users"

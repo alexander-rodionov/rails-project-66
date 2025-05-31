@@ -49,7 +49,7 @@ gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem 'open3'
 gem 'pg', groups: [:production]
-# gem 'pundit'
+gem 'pundit'
 # gem 'ransack'
 gem 'premailer-rails'
 gem 'rollbar'

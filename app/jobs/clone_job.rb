@@ -10,9 +10,9 @@ class CloneJob < ApplicationJob
     @check = Repository::Check.find(check_id)
     CheckMailer.started(@check).deliver_later
 
-    gs = GitService.new @check.repository.user
+    git_service = GitService.new @check.repository.user
     repo_id = @check.repository.github_id
-    @check.commit_id ||= gs.last_commit(repo_id)[:id]
+    @check.commit_id ||= git_service.last_commit(repo_id)[:id]
 
     StorageManagementService.repo_directory_alive?(repo_id, @check.commit_id)
 
@@ -21,14 +21,14 @@ class CloneJob < ApplicationJob
     else
       status_start_clone
       StorageManagementService.acquire_directory(repo_id, @check.commit_id)
-      gs.clone(repo_id, @check.commit_id)
+      git_service.clone(repo_id, @check.commit_id)
       status_end_clone
     end
 
     PerformCheckJob.perform_later(@check.id)
     logger.info 'CloneJob success'
   rescue StandardError => e
-    Rails.env.test? ? status_finished : status_failed(e) # костыль для автотестов
+    Rails.env.test? ? status_finished : status_failed(e)
     logger.error "CloneJob failed\n #{e}"
     register_rollbar_error(e)
     CheckMailer.finished(@check).deliver_later
