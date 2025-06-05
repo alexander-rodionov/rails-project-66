@@ -40,7 +40,9 @@ module RailsProject66
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.after_initialize do
-      Utils::JobsTimerThread.start unless IMMEDIATE_START if Rails.env.production
+      if Rails.env.production? && !IMMEDIATE_START
+        Utils::JobsTimerThread.start
+      end
     end
 
     at_exit do
