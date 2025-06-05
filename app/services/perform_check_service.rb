@@ -13,7 +13,7 @@ class PerformCheckService < BaseCustomService
   def perform
     status_start_processing
 
-    git_service = GitService.new(@check.repository.user)
+    git_service = Github::Client.new(@check.repository.user)
 
     Rollbar.info(summary(@check, git_service))
 

@@ -26,7 +26,7 @@ module Web
         return
       end
 
-      git_service = GitService.new(current_user)
+      git_service = Github::Client.new(current_user)
       repo = git_service.repo_by_id(@github_id)
 
       Repository.create!(

@@ -19,7 +19,7 @@ class CloneRepositoryService < BaseCustomService
       return false
     end
 
-    git_service = GitService.new(@check.repository.user)
+    git_service = Github::Client.new(@check.repository.user)
     repo_id = @check.repository.github_id
     @check.commit_id ||= git_service.last_commit(repo_id)[:id]
     unless StorageManagementService.repo_directory_alive?(repo_id, @check.commit_id)
