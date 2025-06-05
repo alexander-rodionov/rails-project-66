@@ -10,7 +10,7 @@
         tr
           td = t('checks.show.commit_id')
           td = @check.short_id && link_to(@check.short_id,
-            @check.git_commit_link)
+            git_commit_link(@check))
         tr
           td = t('checks.show.created')
           td = human_date(@check.created_at)

@@ -4,9 +4,7 @@ class CleanUpRepoJob < ApplicationJob
   queue_as :default
 
   def perform
-    logger.info 'CleanUpRepoJob started'
-    StorageManagementService.clean_up_directories
-    logger.info 'CleanUpRepoJob finished'
+    StorageManagementService.clean_up_directories(complete: false)
   rescue StandardError => e
     logger.error "CleanUpRepoJob failed\n #{e}"
     register_rollbar_error(e)

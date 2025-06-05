@@ -5,10 +5,7 @@ module Web
     def create
       email, nickname, token = extract_auth_values
 
-      if email.nil? || nickname.nil? || token.nil?
-        Rails.logger.debug 'FAILURE'
-        Rails.logger.debug email, nickname, token
-      end
+      redirect_to root_path if email.nil? || nickname.nil? || token.nil?
 
       user = User.find_by(email: email)
       user ||= User.create!(nickname:, email:, token:)

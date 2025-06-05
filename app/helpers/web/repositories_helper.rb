@@ -2,7 +2,7 @@
 
 module Web
   module RepositoriesHelper
-    SUPPORTED_LANGUAGES = %w[Ruby JavaScript].freeze
+    SUPPORTED_LANGUAGES = %w[Ruby].freeze
     def available_projects
       all_repos = GitService.new(controller.current_user)
                             .repos

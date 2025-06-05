@@ -8,6 +8,7 @@ class GitService < BaseCustomService
   def initialize(user)
     super()
     @user = user
+    @bash_operations = Container.resolve(:bash_operations)
   end
 
   def user
@@ -23,7 +24,7 @@ class GitService < BaseCustomService
   end
 
   def repo_by_id(repo_id)
-    repo = (load_repos.filter { |r| r[:id] == repo_id })[0] || (Rails.env.test? && load_repos[0])
+    repo = FILTER_REPOS_BY_ID.call(load_repos, repo_id)
     extract_repo(repo.to_h)
   end
 
@@ -59,18 +60,14 @@ class GitService < BaseCustomService
   end
 
   def clone(repo_id, commit_id)
-    return true if Rails.env.test?
-
     repo = repos.filter { |i| i[:id] == repo_id }
-    raise StandardError('No proper repository found') if repo.nil? || repo.size > 1
+    raise StandardError, 'No proper repository found' if repo.nil? || repo.size > 1
 
     clone_url = repo[0][:clone_url]
 
     target_dir = StorageManagementService.dir_name(repo_id, commit_id)
     auth_url = clone_url.gsub('https://', "https://#{@user.token}@")
-    stdout_res, stderr_res, status_res = run("git clone #{auth_url} #{target_dir}")
-    Rails.logger.debug stdout_res
-    Rails.logger.debug stderr_res
+    _, _, status_res = @bash_operations.git_clone(auth_url, target_dir)
     raise StandardError, 'git clone failed' unless status_res.exitstatus.zero? ? target_dir : nil
   end
 
@@ -123,11 +120,7 @@ class GitService < BaseCustomService
   end
 
   def client
-    @client ||= if Rails.env.test?
-                  OCTOKIT_MODULE::Client.new(access_token: @user.token)
-                else
-                  Octokit::Client.new(access_token: @user.token)
-                end
+    @client ||= Container.resolve(:github_operations)::Client.new(access_token: @user.token)
   end
 
   def register_hook(repo_id, base_url)
@@ -135,7 +128,7 @@ class GitService < BaseCustomService
     hooks = client.hooks(repo[:id])
     hooks = hooks[0] if hooks[0].is_a?(Array)
     registered_hooks = hooks.filter { |h| h[:config][:url].start_with?(ENV.fetch('BASE_URL', '')) }
-    return true if registered_hooks.any? || Rails.env.test?
+    return true if CHECK_REGISTERED_HOOKS.call(registered_hooks)
 
     hook = client.create_hook(
       repo[:full_name],

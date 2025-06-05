@@ -15,7 +15,6 @@ module Api
       }
 
       log_params(payload.to_json)
-
       post api_checks_url, params: payload, as: :json
       assert_response :ok
 

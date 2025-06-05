@@ -1,7 +1,7 @@
 default: &default_sqlite
   adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  pool: 20
+  timeout: 10000
 
 default_pg: &default_pg
   adapter: postgresql
@@ -11,8 +11,8 @@ default_pg: &default_pg
   username: <%= ENV['PG_USER'] %>
   password: <%= ENV['PG_DATA'] %>
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  pool: 20
+  timeout: 15000
 
 development:
   primary:

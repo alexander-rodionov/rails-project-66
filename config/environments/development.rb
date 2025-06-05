@@ -7,10 +7,11 @@ Rails.application.configure do
   config.action_mailer.logger = nil
 
   config.hosts << ENV.fetch('BASE_URL', '')[%r{http.*://(.*)}, 1]
-  config.cache_store = :memory_store, { size: 200.megabytes }
-  config.cache_store = :memory_store
+  config.cache_store = :memory_store, { size: 200.megabytes, log_level: :warn }
   config.enable_reloading = true
-  config.eager_load = false
+  config.eager_load = true
+  config.allow_concurrency = true
+
   config.consider_all_requests_local = true
   config.server_timing = true
   if Rails.root.join('tmp/caching-dev.txt').exist?
@@ -20,7 +21,6 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
   end
-  config.cache_store = :memory_store
 
   config.active_storage.service = :local
   config.action_mailer.raise_delivery_errors = false

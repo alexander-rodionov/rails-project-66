@@ -28,8 +28,8 @@
       - @repository.checks.each do |c|
         tr
           td = link_to c.id, repository_check_path(@repository, c)
-          td = c.human_state
-          td = c.short_id && link_to(c.short_id, c.git_commit_link,
+          td = human_state(c)
+          td = c.short_id && link_to(c.short_id, git_commit_link(c),
             target: '_blank', rel: 'noopener')
           td = c.passed
           td = human_date(c.created_at, :short)

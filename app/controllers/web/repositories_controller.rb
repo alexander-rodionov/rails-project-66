@@ -21,6 +21,11 @@ module Web
     end
 
     def create
+      if @github_id.blank? || @github_id.zero?
+        redirect_to :new_repository
+        return
+      end
+
       git_service = GitService.new(current_user)
       repo = git_service.repo_by_id(@github_id)
 

@@ -40,7 +40,9 @@ gem 'bootsnap', require: false
 
 gem 'aasm'
 gem 'dotenv-rails', groups: %i[development test]
+gem 'dry-container'
 # gem 'hotwire-rails'
+gem 'enumerize'
 gem 'html2slim', groups: %i[development test]
 # gem 'kaminari'
 # gem 'faraday-retry'

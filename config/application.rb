@@ -39,6 +39,10 @@ module RailsProject66
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.after_initialize do
+      Utils::JobsTimerThread.start unless IMMEDIATE_START
+    end
+
     at_exit do
       unless Rails.env.test?
         begin

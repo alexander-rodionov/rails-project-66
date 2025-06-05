@@ -10,19 +10,19 @@
         tr
           td = t('checks.show.commit_id')
           td = @check.short_id && link_to(@check.short_id,
-            @check.git_commit_link)
+            git_commit_link(@check))
         tr
           td = t('checks.show.created')
           td = human_date(@check.created_at)
         tr
           td = t('checks.show.status')
-          td = @check.human_state
+          td = human_state(@check)
         tr
           td = t('checks.show.check_passed')
           td = @check.passed
         tr
           td = t('checks.show.error_count')
-          td = @check.error_count
+          td = error_count(@check)
         - if @check.error
           tr
             td = t('checks.show.error')
@@ -35,12 +35,12 @@
           th = t('checks.errors.rule_id')
           th = t('checks.errors.location')
       tbody
-        - @check.error_list&.each_value do |check_result|
+        - error_list(@check)&.each_value do |check_result|
           - check_result&.each do |result|
             tr
               - if result.key? :link
                 td colspan="3"
-                  = link_to result[:link], @check.file_link(result[:link])
+                  = link_to result[:link], file_link(@check, result[:link])
               - else
                 td = result['message']
                 td = result['rule']

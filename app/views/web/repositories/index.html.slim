@@ -12,4 +12,4 @@
         tr
           td = link_to r.name, repository_path(r)
           td = r.language
-          td = r.last_check_status
+          td = last_check_status(r)

@@ -20,9 +20,9 @@ class StorageManagementService < BaseCustomService
 
   def self.acquire_directory(repo_id, commit_id)
     dir = dir_name(repo_id, commit_id)
+    register_dir(dir)
     FileUtils.rm_rf(dir)
     FileUtils.mkdir_p(dir)
-    register_dir(dir)
     dir
   end
 

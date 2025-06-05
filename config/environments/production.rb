@@ -4,7 +4,9 @@ require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   config.enable_reloading = false
-  config.eager_load = false
+  config.eager_load = true
+  config.allow_concurrency = true
+
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
   config.assets.compile = false
