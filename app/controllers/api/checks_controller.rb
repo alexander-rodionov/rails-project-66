@@ -12,16 +12,19 @@ module Api
         repository_id = params[:repository][:id]
         repository = Repository.find_by(github_id: repository_id)
 
-        head :not_found if repository.nil?
+        if repository.nil?
+          head :not_found
+          return
+        end
 
-        repository.checks.create!
+        @check = repository.checks.create!
 
-        OrchestratorJob.perform_now if IMMEDIATE_START
+        SimpleProcessingJob.perform_later(@check.id)
         head :ok
       end
     rescue StandardError => e
       register_rollbar_error(e)
-      Rails.logger "Hook processing error #{e}"
+      Rails.logger.error "Hook processing error #{e}"
     end
   end
 end

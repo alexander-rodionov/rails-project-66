@@ -18,7 +18,7 @@ module Web
 
       def create
         @check = @repository.checks.create!
-        OrchestratorJob.perform_now if IMMEDIATE_START
+        SimpleProcessingJob.perform_later(@check.id)
         redirect_to repository_path(@repository)
       end
 

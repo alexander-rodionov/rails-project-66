@@ -26,7 +26,7 @@ module Github
     end
 
     def repo_by_id(repo_id)
-      repo = FILTER_REPOS_BY_ID.call(load_repos, repo_id)
+      repo = (load_repos.filter { |r| r[:id] == repo_id })[0]
       extract_repo(repo.to_h)
     end
 
@@ -61,13 +61,15 @@ module Github
       }
     end
 
-    def clone(repo_id, commit_id)
+    def clone(repo_id, _commit_id, target_dir)
       repo = repos.filter { |i| i[:id] == repo_id }
+      return if repo.empty?
+
       raise StandardError, 'No proper repository found' if repo.nil? || repo.size > 1
 
       clone_url = repo[0][:clone_url]
 
-      target_dir = StorageManagementService.dir_name(repo_id, commit_id)
+      # target_dir = StorageManagementService.dir_name(repo_id, commit_id)
       auth_url = clone_url.gsub('https://', "https://#{@user.token}@")
       _, _, status_res = @bash_operations.git_clone(auth_url, target_dir)
       raise StandardError, 'git clone failed' unless status_res.exitstatus.zero? ? target_dir : nil
@@ -130,7 +132,7 @@ module Github
       hooks = client.hooks(repo[:id])
       hooks = hooks[0] if hooks[0].is_a?(Array)
       registered_hooks = hooks.filter { |h| h[:config][:url].start_with?(ENV.fetch('BASE_URL', '')) }
-      return true if CHECK_REGISTERED_HOOKS.call(registered_hooks)
+      return true if registered_hooks.any?
 
       hook = client.create_hook(
         repo[:full_name],

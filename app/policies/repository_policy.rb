@@ -7,7 +7,6 @@ class RepositoryPolicy < ApplicationPolicy
     @controller_action = controller_action
   end
 
-  # Authorize controller methods directly
   def index?
     user.present?
   end

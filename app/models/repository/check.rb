@@ -12,31 +12,7 @@ class Repository::Check < ApplicationRecord
 
   aasm do # aasm_state field
     state :created, initial: true
-    state :cloning, :cloned, :processing, :finished, :failed, :emtpy
-
-    event :recreate do
-      transitions to: :created
-    end
-
-    event :start_clone do
-      transitions to: :cloning
-    end
-
-    event :end_clone do
-      transitions to: :cloned
-    end
-
-    event :skip_clone do
-      transitions to: :cloned
-    end
-
-    event :start_processing do
-      transitions to: :processing
-    end
-
-    event :no_checks do
-      transitions to: :empty
-    end
+    state :finished, :failed
 
     event :end_processing do
       transitions to: :finished

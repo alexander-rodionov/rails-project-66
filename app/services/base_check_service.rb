@@ -38,4 +38,10 @@ class BaseCheckService < BaseCustomService
   def check_command
     not_implemented_error
   end
+
+  def run(command)
+    Rails.logger.info("Running command #{command}")
+    stdout_res, stderr_res, status_res = Open3.capture3(command)
+    [stdout_res, stderr_res, status_res]
+  end
 end

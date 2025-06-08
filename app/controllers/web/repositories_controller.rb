@@ -26,19 +26,19 @@ module Web
         return
       end
 
-      git_service = Github::Client.new(current_user)
-      repo = git_service.repo_by_id(@github_id)
+      git_client = Github::Client.new(current_user)
+      repo = git_client.repo_by_id(@github_id)
 
       Repository.create!(
         user: current_user,
         name: repo[:name],
-        full_name: repo[:full_name],
-        language: git_service.primary_language(@github_id),
+        full_name: repo[:full_name] || 'Not set',
+        language: git_client.primary_language(@github_id),
         github_id: @github_id,
         web_path: repo[:html_url],
         clone_path: repo[:clone_url]
       )
-      git_service.register_hook(@github_id, ENV.fetch('BASE_URL', ''))
+      git_client.register_hook(@github_id, ENV.fetch('BASE_URL', ''))
       redirect_to repositories_path
     end
 

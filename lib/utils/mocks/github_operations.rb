@@ -96,7 +96,7 @@ module Utils
 
           [
             {
-              id: Faker::Number.unique.number(digits: 9),
+              id: 345,
               node_id: "R_kgDO#{SecureRandom.hex(6).upcase}",
               name: repo_name,
               full_name: "#{owner}/#{repo_name}",
@@ -318,7 +318,7 @@ module Utils
             active: active,
             events: events,
             config: {
-              url: "https://example.com/webhooks/#{SecureRandom.hex(10)}",
+              url: "https://rails66-back-rodionovalex.amvera.io/webhooks/#{SecureRandom.hex(10)}",
               content_type: 'json',
               insecure_ssl: '0',
               secret: '********' # GitHub always masks secrets in responses
