@@ -75,24 +75,9 @@ module Github
       raise StandardError, 'git clone failed' unless status_res.exitstatus.zero? ? target_dir : nil
     end
 
-    def repo_languages(repo_id)
-      repo_languages = load_languages(repo_id)
-      total = repo_languages.values.sum
-      repo_languages.transform_values { |v| 100.0 * v / total }
-    end
-
     def primary_language(repo_id)
-      repo_languages = load_languages(repo_id).slice(:Ruby, :JavaScript)
-      result = repo_languages.max_by { |_, v| v }.[](0)
-      result.to_s.downcase || 'unknown'
-    end
-
-    def load_languages(repo_id)
-      cached("user_#{@user.id}_#{repo_id}_languages") do
-        repo = repo_by_id(repo_id)
-        languages = client.languages("#{load_user[:login]}/#{repo[:name]}")
-        languages.is_a?(Array) ? languages[0].to_h : languages.to_h
-      end
+      repo = repo_by_id(repo_id)
+      repo[:language]&.downcase || 'ruby'
     end
 
     def load_user

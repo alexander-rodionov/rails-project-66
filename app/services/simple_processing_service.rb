@@ -25,8 +25,9 @@ class SimpleProcessingService
 
     git_client.clone(repo_id, commit_id, target_dir)
 
-    repo_languages = git_client.repo_languages(@check.repository.github_id)
-    checks_list = BaseCheckService.checks_factory(repo_languages)
+    # repo_languages = git_client.repo_languages(@check.repository.github_id)
+    repo_language = git_client.primary_language(@check.repository.github_id)
+    checks_list = BaseCheckService.checks_factory([repo_language])
 
     @check.result = checks_list.to_h do |c|
       check_result = c.new(target_dir).check

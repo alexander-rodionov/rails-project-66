@@ -2,7 +2,7 @@
 
 class EslintCheckService < BaseCheckService
   def check_command
-    "npx eslint --config eslint.config.mjs --format json #{dir}"
+    Container.resolve(:bash_operations).eslint(dir)
   end
 
   def self.language

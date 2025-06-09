@@ -172,7 +172,7 @@ module Utils
               size: Faker::Number.between(from: 1000, to: 100_000),
               stargazers_count: Faker::Number.between(from: 0, to: 10_000),
               watchers_count: Faker::Number.between(from: 0, to: 5000),
-              language: %w[Ruby].sample,
+              language: 'Ruby',
               has_issues: [true, false].sample,
               has_projects: [true, false].sample,
               has_downloads: true,

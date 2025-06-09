@@ -28,7 +28,6 @@ module Web
 
       git_client = Github::Client.new(current_user)
       repo = git_client.repo_by_id(@github_id)
-
       Repository.create!(
         user: current_user,
         name: repo[:name],

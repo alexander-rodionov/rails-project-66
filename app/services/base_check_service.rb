@@ -5,8 +5,8 @@ class BaseCheckService < BaseCustomService
 
   def self.checks_factory(languages)
     [
-      languages.key?(:Ruby) ? RubyCheckService : nil,
-      languages.key?(:JavaScript) ? EslintCheckService : nil
+      languages.include?('ruby') ? RubyCheckService : nil,
+      languages.include?('javascript') ? EslintCheckService : nil
     ].compact
   end
 
@@ -16,7 +16,7 @@ class BaseCheckService < BaseCustomService
   end
 
   def check
-    stdout_res, _, status_res = run(check_command)
+    stdout_res, _, status_res = check_command
     return [true, nil] if status_res.success?
 
     parsed_data = JSON.parse(stdout_res)
@@ -37,11 +37,5 @@ class BaseCheckService < BaseCustomService
 
   def check_command
     not_implemented_error
-  end
-
-  def run(command)
-    Rails.logger.info("Running command #{command}")
-    stdout_res, stderr_res, status_res = Open3.capture3(command)
-    [stdout_res, stderr_res, status_res]
   end
 end
