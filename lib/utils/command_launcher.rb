@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Utils
-  class BashOperations
+  class CommandLauncher
     def self.run(command)
       Rails.logger.info("Running command #{command}")
       stdout_res, stderr_res, status_res = Open3.capture3(command)

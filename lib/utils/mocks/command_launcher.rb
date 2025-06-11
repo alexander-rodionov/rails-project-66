@@ -4,14 +4,15 @@
 
 module Utils
   module Mocks
-    class BashOperations
+    class CommandLauncher
+      LINTER_STATUS = 0
       def self.git_clone(_auth_url, _target_dir)
         # [stdout_res, stderr_res, status_res]
         ['', '', ProcessStatus.new(0)]
       end
 
       def self.eslint(_dir)
-        [<<~RESPONSE, '', ProcessStatus.new(0)]
+        [<<~RESPONSE, '', ProcessStatus.new(LINTER_STATUS)]
           [
             {
               "filePath": "/home/alex/Hexlet/rails-project-66/tmp_repos/941649638/c7e6ca07d94bede24b78ee85d4f6e05df36b45dc/terrible.js",
@@ -1172,7 +1173,7 @@ module Utils
       end
 
       def self.rubocop(_dir)
-        [<<~RESPONSE, '', ProcessStatus.new(0)]
+        [<<~RESPONSE, '', ProcessStatus.new(LINTER_STATUS)]
           {
             "metadata": {
               "rubocop_version": "1.75.7",

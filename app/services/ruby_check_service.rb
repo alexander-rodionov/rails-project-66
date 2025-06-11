@@ -2,7 +2,7 @@
 
 class RubyCheckService < BaseCheckService
   def check_command
-    Container.resolve(:bash_operations).rubocop(dir)
+    ApplicationContainer.resolve(:command_launcher).rubocop(dir)
   end
 
   def self.language

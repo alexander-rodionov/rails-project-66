@@ -10,7 +10,7 @@ module Github
     def initialize(user)
       super()
       @user = user
-      @bash_operations = Container.resolve(:bash_operations)
+      @command_launcher = ApplicationContainer.resolve(:command_launcher)
     end
 
     def user
@@ -71,7 +71,7 @@ module Github
 
       # target_dir = StorageManagementService.dir_name(repo_id, commit_id)
       auth_url = clone_url.gsub('https://', "https://#{@user.token}@")
-      _, _, status_res = @bash_operations.git_clone(auth_url, target_dir)
+      _, _, status_res = @command_launcher.git_clone(auth_url, target_dir)
       raise StandardError, 'git clone failed' unless status_res.exitstatus.zero? ? target_dir : nil
     end
 
@@ -109,7 +109,7 @@ module Github
     end
 
     def client
-      @client ||= Container.resolve(:github_operations)::Client.new(access_token: @user.token)
+      @client ||= ApplicationContainer.resolve(:github_operations)::Client.new(access_token: @user.token)
     end
 
     def register_hook(repo_id, base_url)

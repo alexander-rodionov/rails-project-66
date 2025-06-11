@@ -2,7 +2,7 @@
 
 class EslintCheckService < BaseCheckService
   def check_command
-    Container.resolve(:bash_operations).eslint(dir)
+    ApplicationContainer.resolve(:command_launcher).eslint(dir)
   end
 
   def self.language
