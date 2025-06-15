@@ -19,7 +19,7 @@ class EslintCheckService < BaseCheckService
     end
   end
 
-  def parse_summary(in_data)
+  def parse_summary(_in_data)
     {
       offense_count: result[:files].sum { |file| file[:offense_count] },
       target_file_count: result[:files].size,

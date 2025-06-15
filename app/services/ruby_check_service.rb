@@ -34,5 +34,4 @@ class RubyCheckService < BaseCheckService
       }
     }
   end
-
 end
