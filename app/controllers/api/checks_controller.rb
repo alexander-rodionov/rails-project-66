@@ -19,7 +19,7 @@ module Api
 
         @check = repository.checks.create!
 
-        SimpleProcessingJob.perform_later(@check.id)
+        CheckRepositoryJob.perform_later(@check.id)
         head :ok
       end
     rescue StandardError => e

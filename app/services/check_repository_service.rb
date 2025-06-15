@@ -1,19 +1,25 @@
 # frozen_string_literal: true
 
-class SimpleProcessingService
+class CheckRepositoryService
   include NotificationConcern
+  include ActiveModel::Validations
 
   TMP_DIRECTORY = Rails.root.join('tmp_repos')
 
+  attr_reader :check
+
+  validates :check, presence: true
+
   def initialize(check_id)
-    @check_id = check_id
-    @check = Repository::Check.find(@check_id)
+    @check = Repository::Check.find(check_id)
     raise StandardError, "Check not found, check_id:#{check_id}" unless @check
 
     @repo_id = @check.repository.github_id
   end
 
   def perform
+    return false unless valid?
+
     notify_clone_started
 
     git_client = Github::Client.new(user)
@@ -25,21 +31,22 @@ class SimpleProcessingService
 
     git_client.clone(repo_id, commit_id, target_dir)
 
-    # repo_languages = git_client.repo_languages(@check.repository.github_id)
     repo_language = git_client.primary_language(@check.repository.github_id)
     checks_list = BaseCheckService.checks_factory([repo_language])
 
-    @check.result = checks_list.to_h do |c|
-      check_result = c.new(target_dir).check
-      [c.language, { success: check_result[0], result: check_result[1] }]
+    @check.result = checks_list.to_h do |check|
+      check_result = check.new(target_dir).check
+      [check.language, { success: check_result[0], result: check_result[1] }]
     end
 
     remove_directory(target_dir)
 
-    status_finished
+    finish
     notify_processing_finished
+
+    true
   rescue StandardError => e
-    status_failed(e)
+    fail(e)
     Rails.logger.error "CloneJob failed\n #{e}"
     register_rollbar_error(e)
   end
@@ -71,13 +78,13 @@ class SimpleProcessingService
     @check.repository.user
   end
 
-  def status_finished
+  def finish
     @check.end_processing
     @check.passed = @check.passed?
     @check.save!
   end
 
-  def status_failed(exception)
+  def fail(exception)
     @check.fail
     @check.error = exception
     @check.save!

@@ -27,15 +27,26 @@ class BaseCheckService < BaseCustomService
     raise e
   end
 
-  def parse_result(_)
-    not_implemented_error
-  end
-
   def self.language
     not_implemented_error
   end
 
   def check_command
+    not_implemented_error
+  end
+
+  def parse_result(in_data)
+    {
+      files: parse_files(in_data),
+      summary: parse_summary(in_data)
+    }
+  end
+
+  def parse_files(_in_data)
+    not_implemented_error
+  end
+
+  def parse_summary(_in_data)
     not_implemented_error
   end
 end

@@ -24,7 +24,7 @@ class Repository::Check < ApplicationRecord
   end
 
   def short_id
-    commit_id&.[](..6)
+    commit_id&.slice(..6)
   end
 
   def passed?
