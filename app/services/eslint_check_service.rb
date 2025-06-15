@@ -10,18 +10,18 @@ class EslintCheckService < BaseCheckService
   end
 
   def parse_files(in_data)
-    in_data.map do |x|
-      file_name = Rails.root.join(x['filePath']).to_s[dir.size..]
-      offense_count = x['errorCount']
-      offenses = x['messages'].map { |y| { rule: y['ruleId'], message: y['message'], location: "#{y['line']}:#{y['column']}" } }
+    in_data.map do |file|
+      file_name = Rails.root.join(file['filePath']).to_s[dir.size..]
+      offense_count = file['errorCount']
+      offenses = file['messages'].map { |offence| { rule: offence['ruleId'], message: offence['message'], location: "#{offence['line']}:#{offence['column']}" } }
 
       { file_name:, offense_count:, offenses: }
     end
   end
 
-  def parse_summary(_in_data)
+  def parse_summary(in_data)
     {
-      offense_count: result[:files].sum { |x| x[:offense_count] },
+      offense_count: result[:files].sum { |file| file[:offense_count] },
       target_file_count: result[:files].size,
       inspected_file_count: result[:files].size
     }

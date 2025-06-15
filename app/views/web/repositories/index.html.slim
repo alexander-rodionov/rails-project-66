@@ -8,8 +8,8 @@
         th scope='col' = t('repositories.index.language')
         th scope='col' = t('repositories.index.last_check_status')
     tbody
-      - @repositories.each do |r|
+      - @repositories.each do |repo|
         tr
-          td = link_to r.name, repository_path(r)
-          td = r.language
-          td = last_check_status(r)
+          td = link_to repo.name, repository_path(repo)
+          td = repo.language
+          td = last_check_status(repo)

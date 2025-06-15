@@ -6,10 +6,10 @@ module Web
     def available_projects
       all_repos = Github::Client.new(controller.current_user)
                                 .repos
-                                .filter { |r| SUPPORTED_LANGUAGES.include? r[:language] }
-                                .map { |r| [r[:name], r[:id]] }
+                                .filter { |repo| SUPPORTED_LANGUAGES.include? repo[:language] }
+                                .map { |repo| [repo[:name], repo[:id]] }
       assigned_repos = controller.current_user.repository.pluck(:github_id)
-      all_repos.filter { |r| assigned_repos.exclude?(r[1]) }.sort_by { |a| a[0] }
+      all_repos.filter { |repo| assigned_repos.exclude?(repo[1]) }.sort_by { |a| a[0] }
     end
   end
 end

@@ -25,11 +25,11 @@
         th = t('checks.index.check_passed')
         th = t('checks.index.created')
     tbody
-      - @repository.checks.each do |c|
+      - @repository.checks.each do |check|
         tr
-          td = link_to c.id, repository_check_path(@repository, c)
-          td = human_state(c)
-          td = c.short_id && link_to(c.short_id, git_commit_link(c),
+          td = link_to check.id, repository_check_path(@repository, check)
+          td = human_state(check)
+          td = check.short_id && link_to(check.short_id, git_commit_link(check),
             target: '_blank', rel: 'noopener')
-          td = c.passed
-          td = human_date(c.created_at, :short)
+          td = check.passed
+          td = human_date(check.created_at, :short)

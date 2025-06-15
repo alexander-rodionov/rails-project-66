@@ -10,10 +10,10 @@ class RubyCheckService < BaseCheckService
   end
 
   def parse_files(in_data)
-    in_data['files'].map do |x|
-      file_name = Rails.root.join(x['path']).to_s[dir.size..]
-      offense_count = x['offenses'].size
-      offenses = x['offenses'].map { |y| { message: y['message'], rule: y['cop_name'], location: compose_location(y) } }
+    in_data['files'].map do |file|
+      file_name = Rails.root.join(file['path']).to_s[dir.size..]
+      offense_count = file['offenses'].size
+      offenses = file['offenses'].map { |offence| { message: offence['message'], rule: offence['cop_name'], location: compose_location(offence) } }
       { file_name:, offense_count:, offenses: }
     end
   end
@@ -34,4 +34,5 @@ class RubyCheckService < BaseCheckService
       }
     }
   end
+
 end
