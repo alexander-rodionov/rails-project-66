@@ -13,7 +13,7 @@ module Web
       redirect_to root_path, notice: t('message.logged_in')
     end
 
-    def auth; end
+    # def auth; end
 
     def destroy
       session[:user_id] = nil
@@ -43,20 +43,7 @@ module Web
     end
 
     def auth_hash
-      if Rails.env.development?
-        request.env['omniauth.auth'] = {
-          'provider' => 'developer',
-          'uid' => '12345',
-          'info' => {
-            'email' => ENV.fetch('DEV_GIT_EMAIL'),
-            'nickname' => ENV.fetch('DEV_GIT_NICKNAME')
-          },
-          'credentials' => {
-            'token' => ENV.fetch('DEV_GIT_TOKEN', 'token')
-          }
-        }
-      end
-      request.env['omniauth.auth']
+      @auth_hash ||= request.env['omniauth.auth']
     end
   end
 end

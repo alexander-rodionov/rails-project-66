@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../../lib/github/client'
+
 module Web
   module RepositoriesHelper
     SUPPORTED_LANGUAGES = %w[Ruby JavaScript].freeze

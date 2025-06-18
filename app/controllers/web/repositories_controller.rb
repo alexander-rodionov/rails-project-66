@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../../lib/github/client'
+
 module Web
   class RepositoriesController < Web::ApplicationController
     include Pundit::Authorization

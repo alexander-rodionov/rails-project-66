@@ -29,7 +29,9 @@ module RailsProject66
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
     config.autoload_paths += Dir["#{config.root}/app/mailers/concerns/**/"]
-    # config.autoload_paths += Dir["#{config.root}/app/mailers/concerns/**/"]
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    #config.autoload_paths << 'lib'
+    #config.eager_load_paths << 'lib'
 
     # Configuration for the application, engines, and railties goes here.
     #
