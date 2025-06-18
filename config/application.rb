@@ -30,15 +30,5 @@ module RailsProject66
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
     config.autoload_paths += Dir["#{config.root}/app/mailers/concerns/**/"]
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
-    # config.autoload_paths << 'lib'
-    # config.eager_load_paths << 'lib'
-
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
   end
 end
