@@ -7,8 +7,8 @@ OmniAuth.config.silence_get_warning = true
 
 if Rails.env.development?
   OmniAuth.config.full_host = ENV.fetch('TEST_BASE_URL', 'http://localhost:3000')
-else
-  OmniAuth.config.full_host = ENV.fetch('BASE_URL', nil) if ENV.fetch('BASE_URL', nil).present?
+elsif ENV.fetch('BASE_URL', nil).present?
+  OmniAuth.config.full_host = ENV.fetch('BASE_URL', nil)
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
